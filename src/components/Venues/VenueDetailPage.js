@@ -80,14 +80,14 @@ constructor(props){
             <br /><br />
             {!this.props.loading && <div className="blackBg">
                 <div className="ib" >
-                    <div className="ib" style={{"max-width":"100%"}}>
+                    <div className="ib" style={{"maxWidth":"100%"}}>
                           {venue["VName"]} <br/>
                           {venue["VCity"]}
                     </div>
-                    <div className="ib" style={{"max-width":"100%"}}>
+                    <div className="ib" style={{"maxWidth":"100%"}}>
                         {venue["VDescription"]}
                     </div>
-                    <div className="ib" style={{"max-width":"100%"}}>
+                    <div className="ib" style={{"maxWidth":"100%"}}>
                         <div className="ibInline">
                                 <Link to={"/amenities/"+venue.id}>
                                     <Button bsStyle="primary" bsSize="small"  >
@@ -120,7 +120,7 @@ constructor(props){
             </div>}
                     <br /><br />
                     {!this.props.loading && localData.length > 0 &&
-                        <div style={{"max-height":"650px", "overflow": "auto"}}>
+                        <div style={{"maxHeight":"650px", "overflow": "auto"}}>
                           {localData.map((post, index) => {
                                return(<VenueDetailTable  key={post.id} post={post} venue={venue} amenities={amenities} pointOfInterests={pointOfInterests} users={users}/>
                                        );})}

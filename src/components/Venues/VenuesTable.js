@@ -10,8 +10,23 @@ function renderSortArrow (sortKey, sortDesc, sortId) {
   return sortKey === sortId ? (sortDesc ? '↓' : '↑') : '';
 }
 
+//  function redirectToDelete(){
+//     debugger;
+// }
 //  --------------------------------------------------------------------------------------------------------------//
-const VenuesTable = ({venue, venues }) => {
+//const VenuesTable = ({venue, venues, redirectToDelete }) => {
+class VenuesTable extends React.Component{
+    constructor(props){
+        super(props);
+        this.redirectToDelete = this.redirectToDelete.bind(this);
+    }
+
+    redirectToDelete(){
+        this.props.OnDeleteVenue(this.props.venue);
+    }
+
+    render(){
+        const {venue, venues, OnDeleteVenue } = this.props;
     return (
         <div className="blackBg">
             <div className="ib" >
@@ -39,11 +54,18 @@ const VenuesTable = ({venue, venues }) => {
                                 </Link>
                      </div>
                      <div className="ibInline">
-                         <Link to={"/posts/add/"+venue.id}>
+                         <Link to={"/venues/edit/"+venue.id}>
                                    <Button bsStyle="primary" bsSize="small" >
-                                       <Glyphicon glyph="pencil" />  Review this Stadium
+                                       <Glyphicon glyph="pencil" />  Edit Venue
                                    </Button>
                           </Link>
+                     </div>
+                     <div className="ibInline">
+                         {
+                             <Button bsStyle="primary" onClick={this.redirectToDelete} bsSize="small" >
+                                       <Glyphicon glyph="pencil" /> Delete Venue
+                             </Button>
+                           }
                      </div>
                 </div>
             </div>
@@ -55,8 +77,8 @@ const VenuesTable = ({venue, venues }) => {
             <div className="break">&nbsp;</div>
         </div>
     );
-
-};
+    }
+}
 
 VenuesTable.propTypes = {
   // actions

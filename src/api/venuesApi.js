@@ -1,4 +1,5 @@
 import {fetchWithDelay2} from  './delay';
+import axios from 'axios';
 
 function handleErrors(response) {
      if (!response.status == "200") {
@@ -13,7 +14,9 @@ class VenuesApi {
         // const request = new Request(`${process.env.API_HOST}/sb_venue`, {
         //   method: 'GET'
         // });
-        const request = `${process.env.API_HOST}/sb_venue`;
+        let filter = "";
+        filter = "filter[where][Active]=1";
+        const request = `${process.env.API_HOST}/sb_venue?` + filter;
 
         return fetchWithDelay2(request)
         .then(handleErrors)
@@ -156,6 +159,50 @@ class VenuesApi {
                 throw error;
             });
         }
+
+    static saveVenue(venue) {
+            let url = "";
+            if(venue.id == 0){
+                     url =`${process.env.API_HOST}/sb_venue`;
+                     delete venue["id"];
+                }
+            else{
+                    url = `${process.env.API_HOST}/sb_venue/`+ venue.id + "/replace";
+                }
+
+
+            return axios
+            .post(url,venue)
+            .then(handleErrors)
+             .then(response => {
+              return response.data;
+            }).catch(error => {
+              throw error;
+            });
+
+          }
+
+          static deleteVenue(venue) {
+                  let url = "";
+                  venue.Active = 0;
+
+                  if(venue.id > 0){
+                          url = `${process.env.API_HOST}/sb_venue/`+ venue.id + "/replace";
+                      }
+
+                  debugger;
+                  return axios
+                  .post(url,venue)
+                  .then(handleErrors)
+                   .then(response => {
+                    return response.data;
+                  }).catch(error => {
+                    throw error;
+                  });
+
+                }
+
     }
+
 
 export default VenuesApi;

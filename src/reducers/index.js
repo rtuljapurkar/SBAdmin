@@ -3,10 +3,13 @@ import posts from './postReducer';
 import session from './sessionReducer';
 import venues from './venueReducer';
 import loadingStatus from './ajaxStatusReducer';
+import venueDetail from './venueDetailReducer';
 import newPost from './newPostReducer';
-import newVenue from './newVenueReducer';
+import manageVenue from './manageVenueReducer';
 import initialState from './initialState';
 import { routerReducer } from 'react-router-redux';
+import amenities from './amenityReducer';
+import pointOfInterests from './pointOfInterestReducer';
 
 const appReducer = combineReducers({
     routing: routerReducer,
@@ -15,7 +18,10 @@ const appReducer = combineReducers({
     loadingStatus: loadingStatus,
     posts: posts,
     newPost: newPost,
-    newVenue: newVenue
+    manageVenue: manageVenue,
+    amenities: amenities,
+    venueDetail: venueDetail,
+    pointOfInterests: pointOfInterests
 });
 
 export const rootReducer = (state, action) => {

@@ -93,20 +93,7 @@ class PostsApi {
                     });
                 }
 
-        static getVenueByID(ID) {
-              const host = `${process.env.API_HOST}`;
-            //   const request = new Request(`${process.env.API_HOST}/sb_venue/`+ ID, {
-            //     method: 'GET'
-            //   });
-              const request = `${process.env.API_HOST}/sb_venue/`+ ID;
-              return fetchWithDelay2(request)
-              .then(handleErrors)
-              .then(response => {
-                      return response.data;
-                  }).catch(error => {
-                      throw error;
-                  });
-              }
+    
 
           static getAmenityByID(ID) {
                     const host = `${process.env.API_HOST}`;

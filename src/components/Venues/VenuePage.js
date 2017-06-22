@@ -8,10 +8,14 @@ import LoadingDots from '../common/LoadingDots';
 import toastr from 'toastr';
 import VenuesTable from './VenuesTable';
 import {PropTypes} from 'prop-types';
+import {Button, Glyphicon} from 'react-bootstrap';
 
 class VenuesPage extends React.Component {
 constructor(props){
     super(props);
+
+    this.deleteVenue = this.deleteVenue.bind(this);
+
 }
 
   componentWillMount() {
@@ -55,6 +59,11 @@ constructor(props){
      return data;
    }
 
+deleteVenue(venue){
+    this.props.actions.deleteVenue(venue);
+     window.location = "/venues/" + venue.id;
+}
+
 
   render() {
         const { filterString, sortKey, sortDesc } = this.props.venues;
@@ -63,26 +72,36 @@ constructor(props){
         localData = this.filterData(localData);
         const venuesFound = (localData.length > 1 || (localData.length == 1 && localData[0].id > 0));
         return (
-          <div className="col-md-12">
+         <div className="col-md-12">
             <h1>Venues</h1> {this.props.loading && <h4><b><LoadingDots interval={100} dots={20}/></b></h4>}
-
-            {!this.props.loading &&
-                <input className="filter-input" value={filterString}
-              onChange={this.handleFilterStringChange()}
-              type="text" placeholder="Filter Rows"
-              autoCorrect="off" autoCapitalize="off" spellCheck="false" />}
+            <div className="col-md-12">
+                <div className="col-md-4">
+                    {!this.props.loading &&
+                        <input className="filter-input" value={filterString}
+                      onChange={this.handleFilterStringChange()}
+                      type="text" placeholder="Filter Rows"
+                      autoCorrect="off" autoCapitalize="off" spellCheck="false" />}
+                </div>
+                <div className="col-md-8">
+                    {!this.props.loading &&<Link to={"/venues/"}>
+                              <Button bsStyle="primary" bsSize="small" >
+                                  <Glyphicon glyph="pencil" /> Add New Venue
+                              </Button>
+                     </Link>}
+                </div>
+            </div>
             <br /><br />
-                <div style={{"maxHeight":"650px", "overflow": "auto"}}>
+            <div style={{"maxHeight":"650px", "overflow": "auto"}}>
                       {!this.props.loading && venuesFound &&
                               localData.map((venue, index) => {
                                     return(
-                                            <VenuesTable  key={venue.id} venue={venue} venues={venues} />
+                                            <VenuesTable  key={venue.id} venue={venue} venues={venues} OnDeleteVenue={this.deleteVenue}/>
                                       );})
                       }
                       {!this.props.loading && !venuesFound &&
                           <h3>No Venues found</h3>
                       }
-               </div>
+              </div>
 
           </div>
     );

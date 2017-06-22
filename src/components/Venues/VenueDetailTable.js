@@ -114,7 +114,7 @@ const VenueDetailTable = ({post, venue, amenities, pointOfInterests, users}) => 
                                 {userImage !="" && <img src= {userImage} width="30" height="30" alt=""/>}
                                 <br/>
                             </div>
-                            <div style={{"vertical-align": "middle"}}>
+                            <div style={{"verticalAlign": "middle"}}>
                                {post["UserName"]} <br/>
                                <ReactStars
                                name={name}
@@ -164,12 +164,12 @@ VenueDetailTable.propTypes = {
   filterString: PropTypes.string,
   sortKey: PropTypes.string,
   sortDesc: PropTypes.bool,
-  post: PropTypes.array,
+  post: PropTypes.object,
   actions: PropTypes.object,
   venue:PropTypes.object,
-  amenities: PropTypes.object,
-  pointOfInterests: PropTypes.object,
-  users: PropTypes.object
+  amenities: PropTypes.array,
+  pointOfInterests: PropTypes.array,
+  users: PropTypes.array
 };
 
 export default VenueDetailTable;

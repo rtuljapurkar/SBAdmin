@@ -55,7 +55,7 @@ render(){
                                 <div className="collapse navbar-collapse" id="myNavbar">
                                     <ul className="nav navbar-nav">
                                                  <li><Link id="homenav" to="/posts" className="nav navbar-nav current">Home</Link></li>
-                                                 <li><Link id="venuesnav" to="/managevenue" className="nav navbar-nav">Add/Edit Venue</Link></li>
+                                                 <li><Link id="venuesnav" to="/Venues" className="nav navbar-nav">Venues</Link></li>
 
                                                  {/* <li><Link id="teamsnav" to="/teams" className="nav navbar-nav">Teams</Link></li> */}
                                                  <li><Link id="postsnav" to="/posts" className="nav navbar-nav">Add/Edit Amenity</Link></li>
