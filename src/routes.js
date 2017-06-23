@@ -13,6 +13,7 @@ import RegisterPage from './components/Authentication/RegisterPage';
 import LoginPage from './components/Authentication/LoginPage';
 import AmenitiesPage from './components/Venues/AmenitiesPage';
 import PointOfInterestPage from './components/Venues/PointOfInterestPage';
+import ManageAmenityPage from './components/Amenities/ManageAmenityPage';
 import auth from './auth/authenticator';
 
 
@@ -22,10 +23,10 @@ export default (
   <Route path="/" component={MasterPage}>
     <IndexRoute component={HomePage} />
     <Route path="/login" title="Login"  component={LoginPage} />
-    <Route path="/home" title="Home" component={PostsPage} onEnter={requireAuth}/>
+    <Route path="/home" title="Home" component={VenuesPage} onEnter={requireAuth}/>
     <Route path="/register" title="Register" component={RegisterPage} />
     <Route path="/venues" title="Venues" component={VenuesPage} onEnter={requireAuth}/>
-
+    <Route path="/amenity/add/:venueId" title="Manage Amenity" component={ManageAmenityPage} onEnter={requireAuth}/>
     <Route path="/posts"  title="Posts"  component={PostsPage} onEnter={requireAuth}/>
     <Route path="/venues/add" title="Manage Venue" component={ManageVenuePage} onEnter={requireAuth}/>
     <Route path="/venues/:venueId" component={VenueDetailPage} onEnter={requireAuth}/>

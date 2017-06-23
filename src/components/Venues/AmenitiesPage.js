@@ -8,6 +8,7 @@ import toastr from 'toastr';
 import AmenitiesTable from './AmenitiesTable';
 import {DisplayMap} from '../common/DisplayMap';
 import {PropTypes} from 'prop-types';
+import {Button, Glyphicon} from 'react-bootstrap';
 
 class AmenitiesPage extends React.Component {
   constructor(props){
@@ -25,7 +26,7 @@ class AmenitiesPage extends React.Component {
        }
     }
 
-    LoadProps(venueId){        
+    LoadProps(venueId){
         this.props.actions.getVenueByID(venueId)
         .then()
         .catch( error => {
@@ -119,18 +120,31 @@ class AmenitiesPage extends React.Component {
                             </tr>
                           </tbody>
                       </table>}
-                      <br/>
-                    {!this.props.loading &&     <select className="btn btn-primary"
-                            onChange={this.handleFilterDropdownChange()}>
-                          <option value="">All Categories</option>
-                          <option value="Miscellaneous">Miscellaneous</option>
-                          <option value="Food and Beverage">Food & Beverage</option>
-                          <option value="Information">Information</option>
-                          <option value="Merchandise">Merchandise</option>
-                          <option value="Parking">Parking</option>
-                          <option value="Restrooms">Restrooms</option>
-                      </select>}
-                       <br /><br />
+                      <br/> <br/>
+
+                      <div className="col-md-12"  >
+                          <div className="ibInline"  >
+                                {!this.props.loading &&
+                                    <select className="btn btn-primary"
+                                        onChange={this.handleFilterDropdownChange()}>
+                                      <option value="">All Categories</option>
+                                      <option value="Miscellaneous">Miscellaneous</option>
+                                      <option value="Food and Beverage">Food & Beverage</option>
+                                      <option value="Information">Information</option>
+                                      <option value="Merchandise">Merchandise</option>
+                                      <option value="Parking">Parking</option>
+                                      <option value="Restrooms">Restrooms</option>
+                                  </select>}
+                              </div>
+                              <div className="ibInline" >
+                                  {!this.props.loading &&<Link to={"/amenity/add/" + venue.id}>
+                                            <Button bsStyle="primary" bsSize="small" >
+                                                <Glyphicon glyph="pencil" /> Add New Venue
+                                            </Button>
+                                   </Link>}
+                               </div>
+                        </div>
+                        <br/> <br/>
                        {!this.props.loading &&
                            localData.length > 0 &&
                             <div style={{"maxHeight":"650px", "overflow": "auto"}}>

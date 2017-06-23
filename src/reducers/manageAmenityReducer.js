@@ -4,21 +4,21 @@ import {browserHistory} from 'react-router';
 import PropTypes from 'prop-types';
 
 
-export default function postReducer(state = initialState.manageVenue, action) {
+export default function postReducer(state = initialState.manageAmenity, action) {
       switch(action.type) {
-          case types.MANAGE_VENUE_LOAD_SUCCESS:
+          case types.MANAGE_AMENITY_LOAD_SUCCESS:
                   return Object.assign({}, state, {
-                    venue: action.data
+                    amenity: action.data
                   });
-          case types.DEFAULT_VENUE_LOAD_SUCCESS:
+          case types.DEFAULT_AMENITY_LOAD_SUCCESS:
                   return Object.assign({}, state, {
-                    venue: initialState.manageVenue.venue
+                    amenity: initialState.manageVenue.amenity
                   });
-          case types.CREATE_VENUE_SUCCESS:
+          case types.CREATE_AMENITY_SUCCESS:
                       return state;
-          case types.DELETE_VENUE_SUCCESS:
+          case types.DELETE_AMENITY_SUCCESS:
                     return state;
-         case types.ENABLE_VENUE_SUCCESS:
+         case types.ENABLE_AMENITY_SUCCESS:
                     return state;
          default:
                     return state;

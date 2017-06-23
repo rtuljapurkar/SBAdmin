@@ -25,7 +25,9 @@ export function createVenueSuccess (data) {
 export function deleteVenueSuccess (data) {
   return {type: types.DELETE_VENUE_SUCCESS,  data};
 }
-
+export function enableVenueSuccess (data) {
+  return {type: types.ENABLE_VENUE_SUCCESS,  data};
+}
 
 
 
@@ -74,11 +76,23 @@ export function loadVenuesMain() {
      };
    }
 
-   export function deleteVenue(venue) {
+   export function disableVenue(venue) {
      return function (dispatch, getState) {
        dispatch(beginAjaxCall());
        return venuesApi.deleteVenue(venue).then(venue => {
            dispatch(deleteVenueSuccess(venue));
+       }).catch(error => {
+         dispatch(ajaxCallError(error));
+         throw(error);
+       });
+     };
+   }
+
+   export function enableVenue(venue) {
+     return function (dispatch, getState) {
+       dispatch(beginAjaxCall());
+       return venuesApi.enableVenue(venue).then(venue => {
+           dispatch(enableVenueSuccess(venue));
        }).catch(error => {
          dispatch(ajaxCallError(error));
          throw(error);

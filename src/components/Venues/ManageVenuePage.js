@@ -127,6 +127,7 @@ class ManageVenuePage extends React.Component {
 
     this.props.actions.saveVenue(venueToSubmit)
     .then( () =>{
+
                 if(this.state.venue.id > 0)
                 {
                     this.redirect(1, this.state.venue.id);
@@ -143,12 +144,12 @@ class ManageVenuePage extends React.Component {
 
  redirect(toVenueDetail, venueID) {
       this.setState({saving: false});
-      toastr.success('Venue saved');
+      toastr.success('Venue Saved Successfully');
       if(toVenueDetail ==0){
            window.location = "/venues/";
       }
       else{
-           window.location = "/venues/" + venueID;
+           window.location = "/venues/"; /* + venueID;*/
       }
 
   }
@@ -160,15 +161,26 @@ cancelVenue(event){
 }
 
   render() {
+    let venueFound = true;
+    if((this.props.params.venueId > 0) && (this.state.venue.id == 0))
+    {
+        venueFound = false;
+    }
     return (
-      <ManageVenueForm
-        venue={this.state.venue}
-        onChange={this.updateVenueState}
-        onSave={this.saveVenue}
-        errors={this.state.errors}
-        saving={this.state.saving}
-        onCancel={this.cancelVenue}
-      />
+        <div>
+             {venueFound &&
+                     <ManageVenueForm
+                        venue={this.state.venue}
+                        onChange={this.updateVenueState}
+                        onSave={this.saveVenue}
+                        errors={this.state.errors}
+                        saving={this.state.saving}
+                        onCancel={this.cancelVenue}
+                    />}
+            {!venueFound &&
+                <h3>Venue Not Found</h3>
+            }
+        </div>
     );
   }
 }

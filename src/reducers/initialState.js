@@ -229,5 +229,15 @@ venueDetail: {
                     venue:{ "id":0, "VName":"", "VAddress":"", "VCity":"",
                             "VState":"", "VZip":"", "VGPSLoc":"", "VDescription":"",
                             "VCapacity":"", "VDetails":"", "VTags":"", "Active":1, "VImage":""}
-                 }
+                 },
+     manageAmenity:{
+                     amenity:{   "VenueID": 0, "AName": "", "ASection": "", "AChildAmenity": "", "AType": "",
+                               "ASubType": "", "AMainFood": "","AVeggieFood": "", "AVeganFood": "",
+                               "AGFFood": "", "ABeverages": "","ADomesticBeer": "", "ACraftBeer": "",
+                               "AMixedDrinks": "","ATags": "","ACost": "","ADistance": "",
+                               "AWalkingTime": "","ALotLocation": "", "AKidsOk": "", "Active": 1,
+                               "AImage": "","id": 0}
+                  }
+
+
 };

@@ -15,8 +15,8 @@ class VenuesApi {
         //   method: 'GET'
         // });
         let filter = "";
-        filter = "filter[where][Active]=1";
-        const request = `${process.env.API_HOST}/sb_venue?` + filter;
+        //filter = "filter[where][Active]=1";
+        const request = `${process.env.API_HOST}/sb_venue?`;// + filter;
 
         return fetchWithDelay2(request)
         .then(handleErrors)
@@ -169,8 +169,6 @@ class VenuesApi {
             else{
                     url = `${process.env.API_HOST}/sb_venue/`+ venue.id + "/replace";
                 }
-
-
             return axios
             .post(url,venue)
             .then(handleErrors)
@@ -189,8 +187,6 @@ class VenuesApi {
                   if(venue.id > 0){
                           url = `${process.env.API_HOST}/sb_venue/`+ venue.id + "/replace";
                       }
-
-                  debugger;
                   return axios
                   .post(url,venue)
                   .then(handleErrors)
@@ -199,8 +195,89 @@ class VenuesApi {
                   }).catch(error => {
                     throw error;
                   });
-
                 }
+
+        static enableVenue(venue) {
+                let url = "";
+                venue.Active = 1;
+                if(venue.id > 0){
+                        url = `${process.env.API_HOST}/sb_venue/`+ venue.id + "/replace";
+                    }
+                return axios
+                .post(url,venue)
+                .then(handleErrors)
+                 .then(response => {
+                  return response.data;
+                }).catch(error => {
+                  throw error;
+                });
+              }
+
+
+        static getAmenityByID(ID) {
+            const host = `${process.env.API_HOST}`;
+            const request = `${process.env.API_HOST}/sb_amenity/`+ ID;
+            return fetchWithDelay2(request)
+            .then(handleErrors)
+            .then(response => {
+                    return response.data;
+                }).catch(error => {
+                    throw error;
+                });
+            }
+
+            static saveAmenity(amenity) {
+                    let url = "";
+                    if(amenity.id == 0){
+                             url =`${process.env.API_HOST}/sb_amenity`;
+                             delete amenity["id"];
+                        }
+                    else{
+                            url = `${process.env.API_HOST}/sb_amenity/`+ amenity.id + "/replace";
+                        }
+                    return axios
+                    .post(url,amenity)
+                    .then(handleErrors)
+                     .then(response => {
+                      return response.data;
+                    }).catch(error => {
+                      throw error;
+                    });
+
+                  }
+
+                  static deleteAmenity(amenity) {
+                          let url = "";
+                          amenity.Active = 0;
+
+                          if(amenity.id > 0){
+                                  url = `${process.env.API_HOST}/sb_amenity/`+ amenity.id + "/replace";
+                              }
+                          return axios
+                          .post(url,amenity)
+                          .then(handleErrors)
+                           .then(response => {
+                            return response.data;
+                          }).catch(error => {
+                            throw error;
+                          });
+                        }
+
+                static enableAmenity(amenity) {
+                        let url = "";
+                        amenity.Active = 1;
+                        if(amenity.id > 0){
+                                url = `${process.env.API_HOST}/sb_amenity/`+ amenity.id + "/replace";
+                            }
+                        return axios
+                        .post(url,amenity)
+                        .then(handleErrors)
+                         .then(response => {
+                          return response.data;
+                        }).catch(error => {
+                          throw error;
+                        });
+                      }
 
     }
 

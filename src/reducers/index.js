@@ -6,6 +6,7 @@ import loadingStatus from './ajaxStatusReducer';
 import venueDetail from './venueDetailReducer';
 import newPost from './newPostReducer';
 import manageVenue from './manageVenueReducer';
+import manageAmenity from './manageAmenityReducer';
 import initialState from './initialState';
 import { routerReducer } from 'react-router-redux';
 import amenities from './amenityReducer';
@@ -19,6 +20,7 @@ const appReducer = combineReducers({
     posts: posts,
     newPost: newPost,
     manageVenue: manageVenue,
+    manageAmenity: manageAmenity,
     amenities: amenities,
     venueDetail: venueDetail,
     pointOfInterests: pointOfInterests

@@ -14,8 +14,8 @@ class VenuesPage extends React.Component {
 constructor(props){
     super(props);
 
-    this.deleteVenue = this.deleteVenue.bind(this);
-
+    this.disableVenue = this.disableVenue.bind(this);
+    this.enableVenue = this.enableVenue.bind(this);
 }
 
   componentWillMount() {
@@ -59,9 +59,16 @@ constructor(props){
      return data;
    }
 
-deleteVenue(venue){
-    this.props.actions.deleteVenue(venue);
-     window.location = "/venues/" + venue.id;
+disableVenue(venue){
+    this.props.actions.disableVenue(venue);
+     toastr.success('Venue Disabled Successfully');
+     window.location = "/venues/" ; /*+ venue.id;*/
+}
+
+enableVenue(venue){
+    this.props.actions.enableVenue(venue);
+     toastr.success('Venue Enabled Successfully');
+     window.location = "/venues/" ; /*+ venue.id;*/
 }
 
 
@@ -73,7 +80,7 @@ deleteVenue(venue){
         const venuesFound = (localData.length > 1 || (localData.length == 1 && localData[0].id > 0));
         return (
          <div className="col-md-12">
-            <h1>Venues</h1> {this.props.loading && <h4><b><LoadingDots interval={100} dots={20}/></b></h4>}
+                <h1>Venues</h1> {this.props.loading && <h4><b><LoadingDots interval={100} dots={20}/></b></h4>}
             <div className="col-md-12">
                 <div className="col-md-4">
                     {!this.props.loading &&
@@ -83,7 +90,7 @@ deleteVenue(venue){
                       autoCorrect="off" autoCapitalize="off" spellCheck="false" />}
                 </div>
                 <div className="col-md-8">
-                    {!this.props.loading &&<Link to={"/venues/"}>
+                    {!this.props.loading &&<Link to={"/venues/add"}>
                               <Button bsStyle="primary" bsSize="small" >
                                   <Glyphicon glyph="pencil" /> Add New Venue
                               </Button>
@@ -95,7 +102,7 @@ deleteVenue(venue){
                       {!this.props.loading && venuesFound &&
                               localData.map((venue, index) => {
                                     return(
-                                            <VenuesTable  key={venue.id} venue={venue} venues={venues} OnDeleteVenue={this.deleteVenue}/>
+                                            <VenuesTable  key={venue.id} venue={venue} venues={venues} onDisableVenue={this.disableVenue} onEnableVenue={this.enableVenue}/>
                                       );})
                       }
                       {!this.props.loading && !venuesFound &&

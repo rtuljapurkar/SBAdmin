@@ -10,23 +10,24 @@ function renderSortArrow (sortKey, sortDesc, sortId) {
   return sortKey === sortId ? (sortDesc ? '↓' : '↑') : '';
 }
 
-//  function redirectToDelete(){
-//     debugger;
-// }
-//  --------------------------------------------------------------------------------------------------------------//
-//const VenuesTable = ({venue, venues, redirectToDelete }) => {
+
 class VenuesTable extends React.Component{
     constructor(props){
         super(props);
-        this.redirectToDelete = this.redirectToDelete.bind(this);
+        this.redirectToDisable = this.redirectToDisable.bind(this);
+        this.redirectToEnable = this.redirectToEnable.bind(this);
     }
 
-    redirectToDelete(){
-        this.props.OnDeleteVenue(this.props.venue);
+    redirectToDisable(){
+        this.props.onDisableVenue(this.props.venue);
+    }
+
+    redirectToEnable(){
+        this.props.onEnableVenue(this.props.venue);
     }
 
     render(){
-        const {venue, venues, OnDeleteVenue } = this.props;
+        const {venue, venues, onDisableVenue, onEnableVenue   } = this.props;
     return (
         <div className="blackBg">
             <div className="ib" >
@@ -60,13 +61,22 @@ class VenuesTable extends React.Component{
                                    </Button>
                           </Link>
                      </div>
-                     <div className="ibInline">
-                         {
-                             <Button bsStyle="primary" onClick={this.redirectToDelete} bsSize="small" >
-                                       <Glyphicon glyph="pencil" /> Delete Venue
-                             </Button>
-                           }
-                     </div>
+                     {venue.Active == 1 &&
+                         <div className="ibInline">
+                             {
+                                 <Button bsStyle="danger" onClick={this.redirectToDisable} bsSize="small" >
+                                           <Glyphicon glyph="pencil" /> Disable Venue
+                                 </Button>
+                               }
+                         </div>}
+                     {venue.Active ==0 &&
+                            <div className="ibInline">
+                             {
+                                 <Button bsStyle="success" onClick={this.redirectToEnable} bsSize="small" >
+                                           <Glyphicon glyph="pencil" /> Enable Venue
+                                 </Button>
+                               }
+                            </div>}
                 </div>
             </div>
             <div className="ibright">
@@ -93,7 +103,9 @@ VenuesTable.propTypes = {
   sortDesc: PropTypes.bool,
   venues: PropTypes.array,
   actions:PropTypes.object,
-  venue:PropTypes.object
+  venue:PropTypes.object,
+  onDisableVenue: PropTypes.func,
+  onEnableVenue: PropTypes.func
 };
 
 export default VenuesTable;

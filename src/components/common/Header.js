@@ -50,15 +50,16 @@ render(){
                                                </button>
                                                {/* <a className="navbar-brand" href="http://www.stadiumbee.com">React</a> */}
                                                 <a className="navbar-brand" href="http://www.stadiumbee.com">
-                                           <span style={{"color":"white", "fontFamily":"Montserrat"}}>Stadium</span><span style={{"color":"#ffcb45"}}>Bee</span></a>
+                                           <span style={{"color":"white", "fontFamily":"Montserrat"}}>Stadium</span><span style={{"color":"#ffcb45"}}>Bee </span>
+                                           <span style={{"color":"white", "fontFamily":"Montserrat"}}> Administration</span></a>
                                 </div>
                                 <div className="collapse navbar-collapse" id="myNavbar">
                                     <ul className="nav navbar-nav">
-                                                 <li><Link id="homenav" to="/posts" className="nav navbar-nav current">Home</Link></li>
+                                                 <li><Link id="homenav" to="/Venues" className="nav navbar-nav current">Home</Link></li>
                                                  <li><Link id="venuesnav" to="/Venues" className="nav navbar-nav">Venues</Link></li>
 
                                                  {/* <li><Link id="teamsnav" to="/teams" className="nav navbar-nav">Teams</Link></li> */}
-                                                 <li><Link id="postsnav" to="/posts" className="nav navbar-nav">Add/Edit Amenity</Link></li>
+                                                 <li><Link id="postsnav" to="/amenity/manage" className="nav navbar-nav">Add/Edit Amenity</Link></li>
                                                  <li className="visible-sm visible-xs"><Link id="favoritesnav" to="/favorites" className="nav navbar-nav">Add/Edit POI</Link></li>
                                                  {/* <li className="visible-sm visible-xs"><Link id="scoresnav" to="/scores" className="nav navbar-nav">Scores</Link></li> */}
                                     </ul><ul className="nav navbar-nav navbar-right">
@@ -74,39 +75,45 @@ render(){
             else
             {
               return (
+
                   <div>
-                      <nav className="navbar navbar-inverse navbar-collapse">
-                          <div className="container-fluid">
-                              <div className="navbar-header">
-                                              <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" aria-expanded="true" aria-controls="navbar">
-                                                 <span className="icon-bar"></span>
-                                                 <span className="icon-bar"></span>
-                                                 <span className="icon-bar"></span>
-                                             </button>
-                                             <a className="navbar-brand" href="http://www.stadiumbee.com">React</a>
-                                              {/*<a class="navbar-brand" href="http://www.stadiumbee.com">
-                                         <span style={{"color":"white", "fontFamily":"Montserrat"}}>Stadium</span><span style={{"color":"yellow"}}>Bee</span></a> */}
-                              </div>
-                              <div className="collapse navbar-collapse" id="myNavbar">
-                                  <ul className="nav navbar-nav">
-                                               <li><Link id="homenav" to="/posts" className="nav navbar-nav current">Home</Link></li>
-                                               <li><Link id="venuesnav" to="/venues" className="nav navbar-nav">Venues</Link></li>
-
-                                               {/* <li><Link id="teamsnav" to="/teams" className="nav navbar-nav">Teams</Link></li> */}
-                                               <li><Link id="postsnav" to="/posts" className="nav navbar-nav">Posts</Link></li>
-                                               <li className="visible-sm visible-xs"><Link id="favoritesnav" to="/favorites" className="nav navbar-nav">Favorites</Link></li>
-                                               <li className="visible-sm visible-xs"><Link id="scoresnav" to="/scores" className="nav navbar-nav">Scores</Link></li>
-                                  </ul><ul className="nav navbar-nav navbar-right">
-                                      <li><Link id="termsnav" to="/terms" className="nav navbar-nav" >Terms</Link></li>
-                                      <li><Link id="aboutnav" to="/about" className="nav navbar-nav">About</Link></li>
-                                      <li><Link id="helpnav" to="/help" className="nav navbar-nav">Help</Link></li>
-                                      <li><Link to="/login">Login</Link></li>
-                                  </ul>
-                              </div>
+                          <div id="activeTracker">
                           </div>
-                      </nav>
+                          <div id="main_navbar">
+                                  <nav className="navbar navbar-inverse navbar-collapse">
+                                      <div className="container-fluid">
+                                          <div className="navbar-header">
+                                                          <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" aria-expanded="true" aria-controls="navbar">
+                                                             <span className="icon-bar"></span>
+                                                             <span className="icon-bar"></span>
+                                                             <span className="icon-bar"></span>
+                                                         </button>
+                                                         {/* <a className="navbar-brand" href="http://www.stadiumbee.com">React</a> */}
+                                                          <a className="navbar-brand" href="http://www.stadiumbee.com">
+                                                     <span style={{"color":"white", "fontFamily":"Montserrat"}}>Stadium</span><span style={{"color":"#ffcb45"}}>Bee </span>
+                                                     <span style={{"color":"white", "fontFamily":"Montserrat"}}> Administration</span></a>
+                                          </div>
+                                          <div className="collapse navbar-collapse" id="myNavbar">
+                                              <ul className="nav navbar-nav">
+                                                           <li><Link id="homenav" to="/Venues" className="nav navbar-nav current">Home</Link></li>
+                                                           <li><Link id="venuesnav" to="/Venues" className="nav navbar-nav">Venues</Link></li>
 
+                                                           {/* <li><Link id="teamsnav" to="/teams" className="nav navbar-nav">Teams</Link></li> */}
+                                                           <li><Link id="postsnav" to="/amenity/manage" className="nav navbar-nav">Add/Edit Amenity</Link></li>
+                                                           <li className="visible-sm visible-xs"><Link id="favoritesnav" to="/favorites" className="nav navbar-nav">Add/Edit POI</Link></li>
+                                                           {/* <li className="visible-sm visible-xs"><Link id="scoresnav" to="/scores" className="nav navbar-nav">Scores</Link></li> */}
+                                              </ul><ul className="nav navbar-nav navbar-right">
+
+                                                  <li><Link to="/login">Login</Link></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                  </nav>
+                          </div>
                   </div>
+
+
+
 
 
                     );

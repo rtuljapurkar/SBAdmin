@@ -17,6 +17,7 @@ const AmenitiesTable = ({ Amenity }) => {
   let merchandiseFields = ['AName', 'AImage', 'ASection','AType','ACost','ATags'];
   let restroomsFields = ['AName', 'AImage', 'AChildAmenity', 'ASection','AType', 'ATags'];
 
+
   for (let key in Amenity)
   {
       if (Amenity.hasOwnProperty(key)
@@ -39,9 +40,21 @@ const AmenitiesTable = ({ Amenity }) => {
                     let modifiedkey = key.substr(1);
                     if(modifiedkey == "Name"){
                         rowHeader.push(<b key={id} style={{"fontSize":"24px"}}>{value}</b> );
-                        buttonRow.push(<a key={id} href={"/posts/amenities/add/"+id}>
+                        rowHeader.push(<span>&nbsp;&nbsp;</span>);
+                        rowHeader.push(<a key={id+"Disable"} href={"/amenity/add/"+id}>
+                                        <Button bsStyle="danger" bsSize="small" >
+                                            <Glyphicon glyph="pencil" />  Disable
+                                        </Button>
+                                    </a>);
+                        buttonRow.push(<a key={id+"review"} href={"/posts/amenities/add/"+id}>
                                         <Button bsStyle="primary" bsSize="small" >
                                             <Glyphicon glyph="pencil" />  Review
+                                        </Button>
+                                    </a>);
+
+                        buttonRow.push(<a key={id+"Edit"} href={"/amenity/add/"+id}>
+                                        <Button bsStyle="primary" bsSize="small" >
+                                            <Glyphicon glyph="pencil" />  Edit
                                         </Button>
                                     </a>);
                     }
@@ -51,7 +64,7 @@ const AmenitiesTable = ({ Amenity }) => {
                     else
                      {
                         rows.push(<span key={modifiedkey+id}  className="spanAmenities">{modifiedkey}: {value}<br/> </span>);
-                    }
+                     }
 
                 }
           }
