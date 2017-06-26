@@ -8,12 +8,21 @@ import toastr from 'toastr';
 import PointOfInterestTable from './PointOfInterestTable';
 import {DisplayMap} from '../common/DisplayMap';
 import {PropTypes} from 'prop-types';
+import {Button, Glyphicon, SplitButton, MenuItem} from 'react-bootstrap';
 
  function renderSortArrow (sortKey, sortDesc, sortId) {
   return sortKey === sortId ? (sortDesc ? '↓' : '↑') : '';
 }
 
 class PointOfInterestPage extends React.Component {
+  constructor(props){
+    super(props);
+    this.disablePOI = this.disablePOI.bind(this);
+    this.enablePOI = this.enablePOI.bind(this);
+    this.managePOI = this.managePOI.bind(this);
+  }
+
+
   componentWillMount() {
       if (this.props.params.venueId > 0 && this.props.params.venueId != this.props.pointOfInterests.venue.id) {
               this.props.actions.getVenueByID(this.props.params.venueId)
@@ -61,6 +70,25 @@ class PointOfInterestPage extends React.Component {
          return aVal > bVal ? multiplier : (aVal < bVal ? -multiplier : 0);
        });
        return data;
+     }
+
+   disablePOI(poi){
+       this.props.actions.disablePOI(poi);
+       debugger;
+        toastr.success('POI Disabled Successfully');
+        window.location =  "/poi/" + poi.VenueID;
+   }
+
+   enablePOI(poi){
+       this.props.actions.enablePOI(poi);
+       debugger;
+        toastr.success('POI Enabled Successfully');
+        window.location = "/poi/" + poi.VenueID;
+     }
+
+   managePOI(poi){
+       this.props.actions.managePOI(poi);
+       browserHistory.push("/poi/edit") ; /*+ venue.id;*/
      }
 
   render() {
@@ -116,10 +144,21 @@ class PointOfInterestPage extends React.Component {
                   </tbody>
               </table>}
                   <br/><br />
-                  {!this.props.loading &&  <input className="filter-input" value={filterString}
-                     onChange={this.handleFilterStringChange()}
-                     type="text" placeholder="Filter Rows"
-                     autoCorrect="off" autoCapitalize="off" spellCheck="false" />}
+                  <div className="col-md-12"  >
+                      <div className="ibInline"  >
+                        {!this.props.loading &&  <input className="filter-input" value={filterString}
+                           onChange={this.handleFilterStringChange()}
+                           type="text" placeholder="Filter Rows"
+                           autoCorrect="off" autoCapitalize="off" spellCheck="false" />}
+                      </div>
+                     <div className="ibInline" >
+                         {!this.props.loading &&<Link to={"/poi/add/" + venue.id}>
+                                   <Button bsStyle="primary" bsSize="small" >
+                                       <Glyphicon glyph="pencil" /> Add New Point Of Interest
+                                   </Button>
+                          </Link>}
+                      </div>
+                  </div>
                    <br /><br />
                    {!this.props.loading &&
                        localData.length > 0 &&
@@ -128,7 +167,7 @@ class PointOfInterestPage extends React.Component {
                                         localData.map((PointOfInterest, index) => {
                                           return(
                                                   <PointOfInterestTable  key={index}
-                                                      PointOfInterest={PointOfInterest} venue={venue}  />
+                                                      PointOfInterest={PointOfInterest} venue={venue}  onDisable={this.disablePOI} onEnable={this.enablePOI} onManage={this.managePOI}/>
                                             );})
                                     }
                       </div>

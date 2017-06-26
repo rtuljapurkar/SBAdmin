@@ -7,6 +7,7 @@ import venueDetail from './venueDetailReducer';
 import newPost from './newPostReducer';
 import manageVenue from './manageVenueReducer';
 import manageAmenity from './manageAmenityReducer';
+import managePOI from './managePOIReducer';
 import initialState from './initialState';
 import { routerReducer } from 'react-router-redux';
 import amenities from './amenityReducer';
@@ -20,6 +21,7 @@ const appReducer = combineReducers({
     posts: posts,
     newPost: newPost,
     manageVenue: manageVenue,
+    managePOI: managePOI,
     manageAmenity: manageAmenity,
     amenities: amenities,
     venueDetail: venueDetail,

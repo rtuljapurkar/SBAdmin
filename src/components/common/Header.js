@@ -51,7 +51,7 @@ render(){
                                                {/* <a className="navbar-brand" href="http://www.stadiumbee.com">React</a> */}
                                                 <a className="navbar-brand" href="http://www.stadiumbee.com">
                                            <span style={{"color":"white", "fontFamily":"Montserrat"}}>Stadium</span><span style={{"color":"#ffcb45"}}>Bee </span>
-                                           <span style={{"color":"white", "fontFamily":"Montserrat"}}> Administration</span></a>
+                                           <span style={{"color":"white", "fontFamily":"Montserrat"}}> Admin</span></a>
                                 </div>
                                 <div className="collapse navbar-collapse" id="myNavbar">
                                     <ul className="nav navbar-nav">

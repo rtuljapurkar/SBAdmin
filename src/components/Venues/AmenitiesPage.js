@@ -14,6 +14,9 @@ class AmenitiesPage extends React.Component {
   constructor(props){
       super(props);
       this.handleFilterDropdownChange = this.handleFilterDropdownChange.bind(this);
+      this.disableAmenity = this.disableAmenity.bind(this);
+      this.enableAmenity = this.enableAmenity.bind(this);
+      this.manageAmenity = this.manageAmenity.bind(this);
   }
   componentWillMount() {
     if (this.props.params.venueId > 0 && this.props.params.venueId != this.props.amenities.venue.id ) {
@@ -69,6 +72,23 @@ class AmenitiesPage extends React.Component {
         return aVal > bVal ? multiplier : (aVal < bVal ? -multiplier : 0);
       });
       return data;
+    }
+
+  disableAmenity(amenity){
+      this.props.actions.disableAmenity(amenity);
+       toastr.success('Amenity Disabled Successfully');
+       window.location =  "/amenities/" + amenity.VenueID;
+  }
+
+  enableAmenity(amenity){
+      this.props.actions.enableAmenity(amenity);
+       toastr.success('Amenity Enabled Successfully');
+       window.location = "/amenities/" + amenity.VenueID;
+    }
+
+  manageAmenity(amenity){
+      this.props.actions.manageAmenity(amenity);
+      browserHistory.push("/amenity/edit") ; /*+ venue.id;*/
     }
 
   render() {
@@ -136,10 +156,11 @@ class AmenitiesPage extends React.Component {
                                       <option value="Restrooms">Restrooms</option>
                                   </select>}
                               </div>
+                              
                               <div className="ibInline" >
                                   {!this.props.loading &&<Link to={"/amenity/add/" + venue.id}>
                                             <Button bsStyle="primary" bsSize="small" >
-                                                <Glyphicon glyph="pencil" /> Add New Venue
+                                                <Glyphicon glyph="pencil" /> Add New Amenity
                                             </Button>
                                    </Link>}
                                </div>
@@ -150,7 +171,7 @@ class AmenitiesPage extends React.Component {
                             <div style={{"maxHeight":"650px", "overflow": "auto"}}>
                                  {localData.map((Amenity, index) => {
                                               return(
-                                                    <AmenitiesTable key={Amenity.id} Amenity={Amenity}  />
+                                                    <AmenitiesTable key={Amenity.id} Amenity={Amenity} onDisable={this.disableAmenity} onEnable={this.enableAmenity} onManage={this.manageAmenity}/>
                                 );})}
                             </div>
                       }

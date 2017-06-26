@@ -17,7 +17,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                  <TextInput
                    name="AName"
                    label="Name"
-                   value={amenity.AName}
+                   value={amenity.AName== null? "":amenity.AName}
                    onChange={onChange}
                    error={errors.AName}/>
              </td>
@@ -27,7 +27,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                  <TextInput
                    name="ASection"
                    label="Section"
-                   value={amenity.ASection}
+                   value={amenity.ASection== null? "":amenity.ASection}
                    onChange={onChange}
                    error={errors.ASection}/>
              </td>
@@ -35,7 +35,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                  <TextInput
                    name="AChildAmenity"
                    label="Child Amenity"
-                   value={amenity.AChildAmenity}
+                   value={amenity.AChildAmenity== null? "":amenity.AChildAmenity}
                    onChange={onChange}
                    error={errors.AChildAmenity}/>
              </td>
@@ -45,7 +45,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                  <TextInput
                    name="AType"
                    label="Type"
-                   value={amenity.AType}
+                   value={amenity.AType== null? "":amenity.AType}
                    onChange={onChange}
                    error={errors.AType}/>
              </td>
@@ -53,7 +53,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                  <TextInput
                    name="ASubType"
                    label="SubType"
-                   value={amenity.ASubType}
+                   value={amenity.ASubType== null? "":amenity.ASubType}
                    onChange={onChange}
                    error={errors.ASubType}/>
              </td>
@@ -63,7 +63,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                  <TextInput
                    name="AMainFood"
                    label="Main Food"
-                   value={amenity.AMainFood}
+                   value={amenity.AMainFood== null? "":amenity.AMainFood}
                    onChange={onChange}
                    error={errors.AMainFood}/>
              </td>
@@ -71,7 +71,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                  <TextInput
                    name="AVeggieFood"
                    label="Veggie Food"
-                   value={amenity.AVeggieFood}
+                   value={amenity.AVeggieFood == null? "": amenity.AVeggieFood}
                    onChange={onChange}
                    error={errors.AVeggieFood}/>
              </td>
@@ -81,7 +81,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                  <TextInput
                    name="AVeganFood"
                    label="Vegan Food"
-                   value={amenity.AVeganFood+""}
+                   value={amenity.AVeganFood == null? "": amenity.AVeganFood}
                    onChange={onChange}
                    error={errors.AVeganFood}/>
              </td>
@@ -89,7 +89,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                  <TextInput
                    name="AGFFood"
                    label="GF Food"
-                   value={amenity.AGFFood}
+                   value={amenity.AGFFood== null? "":amenity.AGFFood}
                    onChange={onChange}
                    error={errors.AGFFood}/>
              </td>
@@ -99,7 +99,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                  <TextInput
                    name="ABeverages"
                    label="Beverages"
-                   value={amenity.ABeverages}
+                   value={amenity.ABeverages== null? "":amenity.ABeverages}
                    onChange={onChange}
                    error={errors.ABeverages}/>
              </td>
@@ -109,7 +109,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                  <TextInput
                    name="ADomesticBeer"
                    label="Domestic Beer"
-                   value={amenity.ADomesticBeer}
+                   value={amenity.ADomesticBeer== null? "":amenity.ADomesticBeer}
                    onChange={onChange}
                    error={errors.ADomesticBeer}/>
              </td>
@@ -119,7 +119,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                  <TextInput
                    name="ACraftBeer"
                    label="Craft Beer"
-                   value={amenity.ACraftBeer+""}
+                   value={amenity.ACraftBeer== null? "":amenity.ACraftBeer}
                    onChange={onChange}
                    error={errors.ACraftBeer}/>
              </td>
@@ -127,7 +127,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                  <TextInput
                    name="AMixedDrinks"
                    label="Mixed Drinks"
-                   value={amenity.AMixedDrinks}
+                   value={amenity.AMixedDrinks== null? "":amenity.AMixedDrinks}
                    onChange={onChange}
                    error={errors.AMixedDrinks}/>
              </td>
@@ -137,7 +137,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                  <TextInput
                    name="ATags"
                    label="Tags"
-                   value={amenity.ATags}
+                   value={amenity.ATags== null? "":amenity.ATags}
                    onChange={onChange}
                    error={errors.ATags}/>
              </td>
@@ -145,7 +145,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                  <TextInput
                    name="ACost"
                    label="Cost"
-                   value={amenity.ACost}
+                   value={amenity.ACost== null? "":amenity.ACost}
                    onChange={onChange}
                    error={errors.ACost}/>
              </td>
@@ -155,7 +155,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                  <TextInput
                    name="ADistance"
                    label="Distance"
-                   value={amenity.ADistance+""}
+                   value={amenity.ADistance == null? "":amenity.ADistance}
                    onChange={onChange}
                    error={errors.ADistance}/>
              </td>
@@ -163,7 +163,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                  <TextInput
                    name="AWalkingTime"
                    label="Walking Time"
-                   value={amenity.AWalkingTime}
+                   value={amenity.AWalkingTime== null? "":amenity.AWalkingTime}
                    onChange={onChange}
                    error={errors.AWalkingTime}/>
              </td>
@@ -173,7 +173,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                  <TextInput
                    name="ALotLocation"
                    label="Lot Location"
-                   value={amenity.ALotLocation+""}
+                   value={amenity.ALotLocation == null? "": amenity.ALotLocation}
                    onChange={onChange}
                    error={errors.ALotLocation}/>
              </td>
@@ -181,7 +181,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                  <TextInput
                    name="AKidsOk"
                    label="Kids Ok"
-                   value={amenity.AKidsOk}
+                   value={amenity.AKidsOk== null? "":amenity.AKidsOk}
                    onChange={onChange}
                    error={errors.AKidsOk}/>
              </td>
@@ -191,7 +191,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                  <TextInput
                    name="AImage"
                    label="Image URL"
-                   value={amenity.AImage+""}
+                   value={amenity.AImage== null? "":amenity.AImage}
                    onChange={onChange}
                    error={errors.AImage}/>
              </td>
@@ -216,8 +216,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
          </tr>
      </tbody>
  </table>
-
-    </form>
+     </form>
   );
 };
 

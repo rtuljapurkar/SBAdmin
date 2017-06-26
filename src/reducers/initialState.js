@@ -236,8 +236,22 @@ venueDetail: {
                                "AGFFood": "", "ABeverages": "","ADomesticBeer": "", "ACraftBeer": "",
                                "AMixedDrinks": "","ATags": "","ACost": "","ADistance": "",
                                "AWalkingTime": "","ALotLocation": "", "AKidsOk": "", "Active": 1,
-                               "AImage": "","id": 0}
-                  }
+                               "AImage": "","id": 0
+                             },
+                    venues: [{
+                                "id":0, "VName":""
+                              }]
+                  },
+      managePOI:{
+                      poi:{   "VenueID": 0,"POIName": "","POIType": "","POISubType": "",
+                              "POIAddress": "","POICity": "", "POIState": "",  "POIZip": "", "POIGPSLoc": "",
+                              "POIPhone": "", "POIDescription": "", "POIDetails": "", "POITags": "",
+                              "Active": 1, "POIImage": "", "id": 0
+                            },
+                      venues: [{
+                                  "id":0, "VName":""
+                                }]
+                   }
 
 
 };

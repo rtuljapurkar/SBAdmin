@@ -2,6 +2,7 @@ import {fetchWithDelay2} from  './delay';
 import axios from 'axios';
 
 function handleErrors(response) {
+   //console.log(response);
      if (!response.status == "200") {
          throw Error(response.statusText);
      }
@@ -235,6 +236,7 @@ class VenuesApi {
                     else{
                             url = `${process.env.API_HOST}/sb_amenity/`+ amenity.id + "/replace";
                         }
+
                     return axios
                     .post(url,amenity)
                     .then(handleErrors)
@@ -249,7 +251,6 @@ class VenuesApi {
                   static deleteAmenity(amenity) {
                           let url = "";
                           amenity.Active = 0;
-
                           if(amenity.id > 0){
                                   url = `${process.env.API_HOST}/sb_amenity/`+ amenity.id + "/replace";
                               }
@@ -273,11 +274,89 @@ class VenuesApi {
                         .post(url,amenity)
                         .then(handleErrors)
                          .then(response => {
+                             console.log(response);
                           return response.data;
                         }).catch(error => {
                           throw error;
                         });
                       }
+
+          //-----------------------------------------------------------------------------7
+
+
+                  static getPOIByID(ID) {
+                      const host = `${process.env.API_HOST}`;
+                      const request = `${process.env.API_HOST}/sb_poi/`+ ID;
+                      return fetchWithDelay2(request)
+                      .then(handleErrors)
+                      .then(response => {
+                              return response.data;
+                          }).catch(error => {
+                              throw error;
+                          });
+                      }
+
+                      static savePOI(poi) {
+                              let url = "";
+                              if(poi.id == 0){
+                                       url =`${process.env.API_HOST}/sb_poi`;
+                                       delete poi["id"];
+                                  }
+                              else{
+                                      url = `${process.env.API_HOST}/sb_poi/`+ poi.id + "/replace";
+                                  }
+
+                              return axios
+                              .post(url,poi)
+                              .then(handleErrors)
+                               .then(response => {
+                                  console.log(response);
+                                return response.data;
+                              }).catch(error => {
+                                  console.log(error);
+                                throw error;
+                              });
+
+                            }
+
+                            static deletePOI(poi) {
+                                    let url = "";
+                                    poi.Active = 0;
+                                    if(poi.id > 0){
+                                            url = `${process.env.API_HOST}/sb_poi/`+ poi.id + "/replace";
+                                        }
+                                        console.log("deletePOI");
+                                        console.log(poi);
+                                    return axios
+                                    .post(url,poi)
+                                    .then(handleErrors)
+                                     .then(response => {
+                                       console.log(response);
+                                      return response.data;
+                                    }).catch(error => {
+                                      throw error;
+                                    });
+                                  }
+
+                          static enablePOI(poi) {
+                                  let url = "";
+                                  poi.Active = 1;
+                                  if(poi.id > 0){
+                                          url = `${process.env.API_HOST}/sb_poi/`+ poi.id + "/replace";
+                                      }
+                                  console.log("enablePOI");
+                                  console.log(poi);
+                                  return axios
+                                  .post(url,poi)
+                                  .then(handleErrors)
+                                  .then(response => {
+                                     console.log(response);
+                                    return response.data;
+                                  }).catch(error => {
+                                    throw error;
+                                  });
+                                }
+
 
     }
 

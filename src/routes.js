@@ -6,6 +6,8 @@ import HomePage from './components/Home/HomePage';
 import MasterPage from './components/MasterPage';
 import VenuesPage from './components/Venues/VenuePage';
 import ManageVenuePage from './components/Venues/ManageVenuePage';
+import ManageAmenityPage from './components/Amenities/ManageAmenityPage';
+import ManagePOIPage from './components/POI/ManagePOIPage';
 import VenueDetailPage from './components/Venues/VenueDetailPage';
 import PostsPage from './components/Posts/PostsPage';
 import ManagePostPage from './components/Posts/ManagePostPage';
@@ -13,7 +15,6 @@ import RegisterPage from './components/Authentication/RegisterPage';
 import LoginPage from './components/Authentication/LoginPage';
 import AmenitiesPage from './components/Venues/AmenitiesPage';
 import PointOfInterestPage from './components/Venues/PointOfInterestPage';
-import ManageAmenityPage from './components/Amenities/ManageAmenityPage';
 import auth from './auth/authenticator';
 
 
@@ -26,7 +27,11 @@ export default (
     <Route path="/home" title="Home" component={VenuesPage} onEnter={requireAuth}/>
     <Route path="/register" title="Register" component={RegisterPage} />
     <Route path="/venues" title="Venues" component={VenuesPage} onEnter={requireAuth}/>
-    <Route path="/amenity/add/:venueId" title="Manage Amenity" component={ManageAmenityPage} onEnter={requireAuth}/>
+    <Route path="/amenity/edit" title="Manage Amenity" component={ManageAmenityPage} onEnter={requireAuth}/>
+    <Route path="/amenity/add/:venueID" title="Manage Amenity" component={ManageAmenityPage} onEnter={requireAuth}/>
+    <Route path="/poi/edit" title="Manage POI" component={ManagePOIPage} onEnter={requireAuth}/>
+    <Route path="/poi/add/:venueID" title="Manage POI" component={ManagePOIPage} onEnter={requireAuth}/>
+
     <Route path="/posts"  title="Posts"  component={PostsPage} onEnter={requireAuth}/>
     <Route path="/venues/add" title="Manage Venue" component={ManageVenuePage} onEnter={requireAuth}/>
     <Route path="/venues/:venueId" component={VenueDetailPage} onEnter={requireAuth}/>

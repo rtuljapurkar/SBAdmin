@@ -16,21 +16,33 @@ class ManageAmenityPage extends React.Component {
       saving: false
     };
 
+
     this.updateAmenityState = this.updateAmenityState.bind(this);
     this.saveAmenity = this.saveAmenity.bind(this);
     this.cancelAmenity= this.cancelAmenity.bind(this);
+    //this.populateVenueDrodown= this.populateVenueDrodown.bind(this);
+    this.loadVenues = this.loadVenues.bind(this);
+    this.onVenueSelected = this.onVenueSelected.bind(this);
+    this.getDropdown = this.getDropdown.bind(this);
   }
 
 
   componentWillMount() {
-        if (this.props.params.amenityId > 0 && this.props.params.amenityId != this.props.amenity.id ) {
-              this.LoadProps(this.props.params.amenityId);
-          }
-        else{
-            if(this.props.amenity.id > 0){
-                 this.props.actions.LoadDefaultAmenity();
-            }
-        }
+    this.loadVenues();
+    if(this.props.amenity.VenueID == 0 && this.props.params.venueID != 0){
+      console.log("here");
+        this.props.actions.setAmenityVenueID(this.props.params.venueID);
+    }
+  // debugger;
+  //
+  //       if (this.props.params.amenityId > 0 && this.props.params.amenityId != this.props.amenity.id ) {
+  //             this.LoadProps(this.props.params.amenityId);
+  //         }
+  //       else{
+  //           if(this.props.amenity.id > 0){
+  //                this.props.actions.LoadDefaultAmenity();
+  //           }
+  //       }
   }
   componentWillReceiveProps (nextProps) {
      if(this.props.amenity.Id !== nextProps.amenity.id) {
@@ -38,6 +50,13 @@ class ManageAmenityPage extends React.Component {
      }
   }
 
+  loadVenues(){
+    this.props.actions.loadVenues()
+    .then()
+    .catch( error => {
+        toastr.error(error);
+    });
+  }
   LoadProps(amenityId){
       this.props.actions.loadAmenityByID(amenityId)
       .then()
@@ -57,102 +76,102 @@ class ManageAmenityPage extends React.Component {
     let formIsValid = true;
     let errors = {};
 
-    if (this.state.amenity.VName == "") {
-      errors.VName = 'Amenity Name is invalid';
+    if (this.state.amenity.AName == "") {
+      errors.AName = 'Amenity Name is invalid';
       formIsValid = false;
     }
 
     if (this.state.amenity.ASection == "") {
-      errors.VAddress = 'amenity Section is invalid';
+      errors.ASection = 'Amenity Section is invalid';
       formIsValid = false;
     }
 
     if (this.state.amenity.AChildAmenity == "") {
-      errors.VCity = 'amenity ChildAmenity is invalid';
+      errors.AChildAmenity = 'Amenity Child Amenity is invalid';
       formIsValid = false;
     }
 
     if (this.state.amenity.AType == "") {
-      errors.VState = 'amenity Type is invalid';
+      errors.AType = 'Amenity Type is invalid';
       formIsValid = false;
     }
 
     if (this.state.amenity.ASubType == "") {
-      errors.VZip = 'amenity zip Sub Type is invalid';
+      errors.ASubType = 'Amenity Sub Type is invalid';
       formIsValid = false;
     }
 
     if (this.state.amenity.AMainFood == "") {
-      errors.VGPSLoc = 'amenity Main Food is invalid';
+      errors.AMainFood = 'Amenity Main Food is invalid';
       formIsValid = false;
     }
 
     if (this.state.amenity.AVeggieFood == "") {
-      errors.VDescription = 'amenity Veggie Food is invalid';
+      errors.AVeggieFood = 'Amenity Veggie Food is invalid';
       formIsValid = false;
     }
 
     if (this.state.amenity.AVeganFood == "") {
-      errors.VCapacity = 'amenity Vegan Food is invalid';
+      errors.AVeganFood = 'Amenity Vegan Food is invalid';
       formIsValid = false;
     }
 
     if (this.state.amenity.AGFFood == "") {
-      errors.VDetails = 'amenity AGF Food is invalid';
+      errors.AGFFood = 'Amenity GF Food is invalid';
       formIsValid = false;
     }
 
     if (this.state.amenity.ABeverages == "") {
-      errors.VTags = 'amenity Beverages is invalid';
+      errors.ABeverages = 'Amenity Beverages is invalid';
       formIsValid = false;
     }
 
     if (this.state.amenity.ADomesticBeer == "") {
-      errors.VImage = 'amenity Domestic Beer is invalid';
+      errors.ADomesticBeer = 'Amenity Domestic Beer is invalid';
       formIsValid = false;
     }
 
     if (this.state.amenity.ACraftBeer == "") {
-      errors.VCapacity = 'amenity Craft Beer is invalid';
+      errors.ACraftBeer = 'Amenity Craft Beer is invalid';
       formIsValid = false;
     }
 
     if (this.state.amenity.AMixedDrinks == "") {
-      errors.VDetails = 'amenity Mixed Drinks is invalid';
+      errors.AMixedDrinks = 'Amenity Mixed Drinks is invalid';
       formIsValid = false;
     }
 
     if (this.state.amenity.ATags == "") {
-      errors.VTags = 'amenity Tags is invalid';
+      errors.ATags = 'Amenity Tags is invalid';
       formIsValid = false;
     }
 
     if (this.state.amenity.ACost == "") {
-      errors.VImage = 'amenity Cost is invalid';
+      errors.ACost = 'Amenity Cost is invalid';
       formIsValid = false;
     }
 
     if (this.state.amenity.ADistance == "") {
-      errors.VCapacity = 'amenity Distance is invalid';
+      errors.ADistance = 'Amenity Distance is invalid';
       formIsValid = false;
     }
 
     if (this.state.amenity.AWalkingTime == "") {
-      errors.VDetails = 'amenity Walking Time is invalid';
+      errors.AWalkingTime = 'Amenity Walking Time is invalid';
       formIsValid = false;
     }
 
     if (this.state.amenity.ALotLocation == "") {
-      errors.VTags = 'amenity Lot Location is invalid';
+      errors.ALotLocation = 'Amenity Lot Location is invalid';
       formIsValid = false;
     }
 
     if (this.state.amenity.AKidsOk == "") {
-      errors.VImage = 'amenity Kids Ok is invalid';
+      errors.AKidsOk = 'Amenity Kids Ok is invalid';
       formIsValid = false;
     }
     if (this.state.amenity.AImage == "") {
-      errors.VImage = 'amenity Image URL is invalid';
+      errors.AImage = 'Amenity Image URL is invalid';
       formIsValid = false;
     }
 
@@ -163,7 +182,6 @@ class ManageAmenityPage extends React.Component {
 
 
   saveAmenity(event) {
-      debugger;
     event.preventDefault();
     if (!this.amenityFormIsValid()) {
       return;
@@ -173,14 +191,7 @@ class ManageAmenityPage extends React.Component {
 
     this.props.actions.saveAmenity(amenityToSubmit)
     .then( () =>{
-
-                if(this.state.amenity.id > 0)
-                {
-                    this.redirect(1, this.state.amenity.id);
-                }else{
-                    this.redirect(0, 0);
-                }
-
+            this.redirect(this.state.amenity.VenueID);
       })
       .catch(error => {
         toastr.error(error);
@@ -188,11 +199,10 @@ class ManageAmenityPage extends React.Component {
       });
   }
 
- redirect(amenityID) {
+ redirect(venueID) {
       this.setState({saving: false});
       toastr.success('Amenity Saved Successfully');
-      window.location = "/venues/"; /* + venueID;*/
-
+      window.location = "/amenities/" + venueID;
 
   }
 
@@ -202,14 +212,62 @@ cancelAmenity(event){
     this.context.router.push('/venues');
 }
 
+// populateVenueDrodown(){
+//   let items = this.props.venues;
+//        for (let i = 0; i <= this.props.maxValue; i++) {
+//             items.push(<option key=i value=i>{i["VName"]}</option>);
+//        }
+//        return items;
+// }
+
+getDropdown(){
+  let i = 0;
+  let options = this.props.venues.map(function (option) {
+       return React.createElement(
+           'option',
+           { value: option, key: i++ },
+           option
+       );
+   });
+  return React.createElement(
+       'select',
+       { onChange: this.onVenueSelected },
+       options
+   );
+}
+onVenueSelected(){
+  return (e) => {
+    e.preventDefault();
+  console.log(e.target.value);
+  };
+}
   render() {
+    console.log(this.state.amenity.VenueID);
+    console.log(this.props.params.venueID);
+
+    // var Data     = ['this', 'example', 'isnt', 'funny'],
+    //     MakeItem = function(X) {
+    //        return <option>{X}</option>;
+    //     };
+
     let amenityFound = true;
     if((this.props.params.amenityId > 0) && (this.state.amenity.id == 0))
     {
         amenityFound = false;
     }
+    console.log(this.props.venues);
+
     return (
         <div>
+            <div>
+                // {this.getDropdown()}
+              {this.props.venues.length > 1 && <select>{this.props.venues.map((venue, index) => {
+                           return(<option key={venue.id} value={venue.id}>{venue.VName}</option>
+                          );  })
+
+                  }</select>};
+            </div>
+            <div>
              {amenityFound &&
                      <ManageAmenityForm
                         amenity={this.state.amenity}
@@ -222,6 +280,8 @@ cancelAmenity(event){
             {!amenityFound &&
                 <h3>Amenity Not Found</h3>
             }
+            <br/><br/>
+            </div>
         </div>
     );
   }
@@ -232,7 +292,7 @@ ManageAmenityPage.propTypes = {
   actions: PropTypes.object.isRequired,
   params: PropTypes.object.isRequired,
   amenity: PropTypes.object,
-  poi: PropTypes.object
+  venues: PropTypes.array
 };
 
 //Pull in the React Router context so router is available on this.context.router.
@@ -241,10 +301,11 @@ ManageAmenityPage.contextTypes = {
 };
 
 
-
 function mapStateToProps(state, ownProps) {
+  console.log(state.manageAmenity.venues)
   return {
-              amenity: state.manageAmenity.amenity
+        amenity: state.manageAmenity.amenity,
+        venues: state.manageAmenity.venues
     };
 }
 

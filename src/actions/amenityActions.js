@@ -31,7 +31,28 @@ export function deleteAmenitySuccess (data) {
 export function enableAmenitySuccess (data) {
   return {type: types.ENABLE_AMENITY_SUCCESS,  data};
 }
+export function manageAmenitySuccess (data) {
+  return {type: types.REDIRECT_MANAGE_AMENITY_SUCCESS,  data};
+}
+export function setAmenityVenueIDSuccess (data) {
+  return {type: types.SET_AMENITY_VENUE_SUCCESS,  data};
+}
+export function loadVenuesSuccess(data) {
+  return {type: types.LOAD_MANAGEAMENITY_VENUES_SUCCESS, data};
+}
 
+export function loadVenues() {
+  // make async call to api
+  return function(dispatch) {
+        dispatch( beginAjaxCall());
+        return venuesApi.getAllVenues().then(data => {
+             dispatch(loadVenuesSuccess(data));
+         }).catch(error => {
+             dispatch(ajaxCallError(error));
+             throw(error);
+         });
+     };
+ }
 
 
  export function loadAmenities(venueId) {
@@ -112,5 +133,17 @@ export function enableAmenitySuccess (data) {
          dispatch(ajaxCallError(error));
          throw(error);
        });
+     };
+   }
+
+   export function manageAmenity(amenity) {
+     return function (dispatch, getState) {
+         dispatch(manageAmenitySuccess(amenity));
+     };
+   }
+
+   export function setAmenityVenueID(venueID) {
+     return function (dispatch, getState) {
+         dispatch(setAmenityVenueIDSuccess(venueID));
      };
    }
