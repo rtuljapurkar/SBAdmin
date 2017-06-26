@@ -40,6 +40,12 @@ export function setAmenityVenueIDSuccess (data) {
 export function loadVenuesSuccess(data) {
   return {type: types.LOAD_MANAGEAMENITY_VENUES_SUCCESS, data};
 }
+export function loadAmenityByIDSuccess(data) {
+  return {type: types.MANAGE_AMENITY_LOAD_SUCCESS, data};
+}
+export function manageAmenitiesSuccess(data) {
+  return {type: types.MANAGE_LOADALL_AMENITIES_SUCCESS, data};
+}
 
 export function loadVenues() {
   // make async call to api
@@ -85,7 +91,7 @@ export function loadVenues() {
      return function(dispatch) {
            dispatch( beginAjaxCall());
            return venuesApi.getAmenityByID(ID).then(data => {
-                dispatch(loadAmenitiesVenuesSuccess(data));
+                dispatch(loadAmenityByIDSuccess(data));
             }).catch(error => {
                 dispatch(ajaxCallError(error));
                 throw(error);
@@ -93,10 +99,9 @@ export function loadVenues() {
         };
     }
 
-   export function LoadDefaultAmenity() {
-     // make async call to api, handle promise, dispatch action when promise is resolved
+   export function loadDefaultAmenity(venueID) {
      return function(dispatch) {
-           dispatch(DefaultAmenityLoadSuccess());
+           dispatch(DefaultAmenityLoadSuccess(venueID));
         };
     }
 
@@ -147,3 +152,15 @@ export function loadVenues() {
          dispatch(setAmenityVenueIDSuccess(venueID));
      };
    }
+
+   export function manageAmenities(venueId) {
+           return function(dispatch) {
+           dispatch( beginAmenitiesAjaxCall());
+           return venuesApi.getAllAmenities(venueId).then(data => {
+                dispatch(manageAmenitiesSuccess(data));
+            }).catch(error => {
+                dispatch(ajaxCallError(error));
+                throw(error);
+            });
+        };
+    }

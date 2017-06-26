@@ -7,7 +7,7 @@ export function fetchWithDelay(request){
                     try{
                         resolve (fetch(request));
                     }catch(ex){
-                        console.log(ex);
+                       console.log(ex);
                         throw ex;
 
                     }

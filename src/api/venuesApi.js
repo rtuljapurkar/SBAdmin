@@ -274,7 +274,6 @@ class VenuesApi {
                         .post(url,amenity)
                         .then(handleErrors)
                          .then(response => {
-                             console.log(response);
                           return response.data;
                         }).catch(error => {
                           throw error;
@@ -310,10 +309,8 @@ class VenuesApi {
                               .post(url,poi)
                               .then(handleErrors)
                                .then(response => {
-                                  console.log(response);
                                 return response.data;
                               }).catch(error => {
-                                  console.log(error);
                                 throw error;
                               });
 
@@ -325,13 +322,10 @@ class VenuesApi {
                                     if(poi.id > 0){
                                             url = `${process.env.API_HOST}/sb_poi/`+ poi.id + "/replace";
                                         }
-                                        console.log("deletePOI");
-                                        console.log(poi);
                                     return axios
                                     .post(url,poi)
                                     .then(handleErrors)
                                      .then(response => {
-                                       console.log(response);
                                       return response.data;
                                     }).catch(error => {
                                       throw error;
@@ -344,13 +338,10 @@ class VenuesApi {
                                   if(poi.id > 0){
                                           url = `${process.env.API_HOST}/sb_poi/`+ poi.id + "/replace";
                                       }
-                                  console.log("enablePOI");
-                                  console.log(poi);
                                   return axios
                                   .post(url,poi)
                                   .then(handleErrors)
-                                  .then(response => {
-                                     console.log(response);
+                                  .then(response => {                                    
                                     return response.data;
                                   }).catch(error => {
                                     throw error;

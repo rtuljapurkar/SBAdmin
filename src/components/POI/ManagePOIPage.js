@@ -26,7 +26,6 @@ class ManagePOIPage extends React.Component {
   componentWillMount() {
 
     if(this.props.poi.VenueID == 0 && this.props.params.venueID != 0){
-      console.log("here");
         this.props.actions.setPOIVenueID(this.props.params.venueID);
     }
 
@@ -147,10 +146,7 @@ cancelPOI(event){
     this.context.router.push('/venues');
 }
 
-  render() {
-    console.log(this.state.poi.VenueID);
-    console.log(this.props.params.venueID);
-
+  render() {    
     let poiFound = true;
     if((this.props.params.poiId > 0) && (this.state.poi.id == 0))
     {

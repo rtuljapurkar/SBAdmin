@@ -238,9 +238,14 @@ venueDetail: {
                                "AWalkingTime": "","ALotLocation": "", "AKidsOk": "", "Active": 1,
                                "AImage": "","id": 0
                              },
-                    venues: [{
-                                "id":0, "VName":""
-                              }]
+                       venues: [{
+                                   "id":0, "VName":""
+                               }],
+                       amenities: [{
+                                        "VenueID": "",
+                                        "AName": "",
+                                        "id": 0
+                                    }]
                   },
       managePOI:{
                       poi:{   "VenueID": 0,"POIName": "","POIType": "","POISubType": "",
@@ -250,7 +255,29 @@ venueDetail: {
                             },
                       venues: [{
                                   "id":0, "VName":""
-                                }]
+                              }],
+                      amenities: [{
+                                      "VenueID": "",
+                                       "AName": "",
+                                       "AType": "",
+                                       "AMainFood": "",
+                                       "AVeggieFood": "",
+                                       "AVeganFood": "",
+                                       "AGFFood": "",
+                                       "ABeverages": "",
+                                       "ADomesticBeer": "",
+                                       "ACraftBeer": "",
+                                       "AMixedDrinks": "",
+                                       "ANearestGates": "",
+                                       "ATags": "",
+                                       "ACost": "",
+                                       "ADistance": "",
+                                       "AWalkingTime": "",
+                                       "ALotLocation": "",
+                                       "Active": "1",
+                                       "AImage": "",
+                                       "id": 0
+                                   }]
                    }
 
 

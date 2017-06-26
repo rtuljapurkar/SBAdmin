@@ -19,6 +19,7 @@ constructor(props){
 }
 
   componentWillMount() {
+      debugger;
     if (this.props.venues.data == [] || this.props.venues.data.length == 1) {
         this.props.actions.loadVenuesMain()
         .then()

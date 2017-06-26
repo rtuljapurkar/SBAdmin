@@ -23,30 +23,48 @@ class ManageAmenityPage extends React.Component {
     //this.populateVenueDrodown= this.populateVenueDrodown.bind(this);
     this.loadVenues = this.loadVenues.bind(this);
     this.onVenueSelected = this.onVenueSelected.bind(this);
-    this.getDropdown = this.getDropdown.bind(this);
+    this.onAmenitySelected = this.onAmenitySelected.bind(this);
   }
 
 
   componentWillMount() {
     this.loadVenues();
-    if(this.props.amenity.VenueID == 0 && this.props.params.venueID != 0){
-      console.log("here");
-        this.props.actions.setAmenityVenueID(this.props.params.venueID);
+    console.log("will mount");
+
+    if(this.props.params.venueID > 0 && this.props.params.venueID != this.props.amenity.VenueID ){
+        console.log("in if");
+        this.props.actions.loadDefaultAmenity(this.props.params.venueID);
     }
-  // debugger;
-  //
-  //       if (this.props.params.amenityId > 0 && this.props.params.amenityId != this.props.amenity.id ) {
-  //             this.LoadProps(this.props.params.amenityId);
-  //         }
-  //       else{
-  //           if(this.props.amenity.id > 0){
-  //                this.props.actions.LoadDefaultAmenity();
-  //           }
-  //       }
   }
+
   componentWillReceiveProps (nextProps) {
-     if(this.props.amenity.Id !== nextProps.amenity.id) {
-          this.setState({amenity: Object.assign({}, nextProps.amenity)});
+     if(this.props.amenity.id !== nextProps.amenity.id  ||
+                this.props.amenity.VenueID !== nextProps.amenity.VenueID) {
+         debugger;
+         console.log("in eillreceiveprops");
+         console.log(nextProps);
+
+         if(this.props.amenity.id != nextProps.amenity.id){
+             this.setState({amenity: nextProps.amenity});
+         }
+
+         if(this.props.amenity.VenueID != nextProps.amenity.VenueID){
+             if(nextProps.amenity.VenueID == 0){
+                    this.props.actions.loadDefaultAmenity(nextProps.params.venueID);
+                }
+             else{
+                    if(nextProps.amenity.VenueID > 0){
+                        this.props.actions.manageAmenities(nextProps.amenity.VenueID);
+                        this.props.actions.loadDefaultAmenity(nextProps.amenity.VenueID);
+                      }
+                }
+         }
+
+
+        //   this.setState({amenity: Object.assign({}, nextProps.amenity)});
+
+
+         // this.props.actions.loadDefaultAmenity(nextProps.params.venueID);
      }
   }
 
@@ -57,13 +75,6 @@ class ManageAmenityPage extends React.Component {
         toastr.error(error);
     });
   }
-  LoadProps(amenityId){
-      this.props.actions.loadAmenityByID(amenityId)
-      .then()
-      .catch( error => {
-                toastr.error(error);
-      });
-    }
 
   updateAmenityState(event) {
     const field = event.target.name;
@@ -72,9 +83,14 @@ class ManageAmenityPage extends React.Component {
     return this.setState({amenity: amenity});
   }
 
-   amenityFormIsValid() {
+  amenityFormIsValid() {
     let formIsValid = true;
     let errors = {};
+
+    if (this.state.amenity.VenueID == undefined || this.state.amenity.VenueID == "0") {
+      errors.VenueID = 'Amenity Venue is invalid';
+      formIsValid = false;
+    }
 
     if (this.state.amenity.AName == "") {
       errors.AName = 'Amenity Name is invalid';
@@ -178,8 +194,7 @@ class ManageAmenityPage extends React.Component {
 
     this.setState({errors: errors});
     return formIsValid;
-  }
-
+}
 
   saveAmenity(event) {
     event.preventDefault();
@@ -203,71 +218,90 @@ class ManageAmenityPage extends React.Component {
       this.setState({saving: false});
       toastr.success('Amenity Saved Successfully');
       window.location = "/amenities/" + venueID;
-
   }
 
+ cancelAmenity(event){
+        event.preventDefault();
+        this.context.router.push('/venues');
+    }
 
-cancelAmenity(event){
-    event.preventDefault();
-    this.context.router.push('/venues');
-}
+ onVenueSelected(){
+      return (e) => {
+        e.preventDefault();
+        console.log(e.target.value);
+        this.props.actions.setAmenityVenueID(e.target.value);
+        if(e.target.value > 0){
+            this.props.actions.manageAmenities(e.target.value);
+        }
+      };
+   }
 
-// populateVenueDrodown(){
-//   let items = this.props.venues;
-//        for (let i = 0; i <= this.props.maxValue; i++) {
-//             items.push(<option key=i value=i>{i["VName"]}</option>);
-//        }
-//        return items;
-// }
+ onAmenitySelected(){
+      return (e) => {
+        e.preventDefault();
+        console.log(e.target.value);
+         let venueID = e.target.attributes["data-venueID"].value;
+         if(venueID == undefined){
+             venueID = 0
+         }
+        if(e.target.value > 0){
+            this.props.actions.getAmenityByID(e.target.value)
+            .then()
+            .catch( error => {
+                      toastr.error(error);
+            });
+        }
+        else{
+            this.props.actions.loadDefaultAmenity(venueID);
+        }
 
-getDropdown(){
-  let i = 0;
-  let options = this.props.venues.map(function (option) {
-       return React.createElement(
-           'option',
-           { value: option, key: i++ },
-           option
-       );
-   });
-  return React.createElement(
-       'select',
-       { onChange: this.onVenueSelected },
-       options
-   );
-}
-onVenueSelected(){
-  return (e) => {
-    e.preventDefault();
-  console.log(e.target.value);
-  };
-}
+      };
+    }
+
   render() {
-    console.log(this.state.amenity.VenueID);
-    console.log(this.props.params.venueID);
-
-    // var Data     = ['this', 'example', 'isnt', 'funny'],
-    //     MakeItem = function(X) {
-    //        return <option>{X}</option>;
-    //     };
-
     let amenityFound = true;
     if((this.props.params.amenityId > 0) && (this.state.amenity.id == 0))
     {
         amenityFound = false;
     }
-    console.log(this.props.venues);
-
+      console.log(this.state.amenity.VenueID);
+     console.log("render");
     return (
         <div>
-            <div>
-                // {this.getDropdown()}
-              {this.props.venues.length > 1 && <select>{this.props.venues.map((venue, index) => {
-                           return(<option key={venue.id} value={venue.id}>{venue.VName}</option>
-                          );  })
-
-                  }</select>};
-            </div>
-            <div>
+            <h1>Add/Edit Amenity</h1>
+            {this.props.venues.length > 1 &&
+                <div className="form-group">
+                 <label htmlFor={"Venue"}>{"Venue"}</label>
+                    <div className="field">
+                             <select   name={"Venue"} className="btn btn-primary"
+                                onChange={this.onVenueSelected()}
+                                defaultValue={this.state.amenity.VenueID && this.state.amenity.VenueID > 0 ? this.state.amenity.VenueID: 0} >
+                                <option key={0} value={0}>Select Venue</option>
+                            {this.props.venues.map((venue, index) => {
+                               return(<option key={venue.id} value={venue.id} >{venue.VName}</option>
+                              );  })
+                            }
+                          </select>;
+                          {this.state.errors.VenueID != undefined && this.state.errors.VenueID.length > 0
+                              && <div className="form-group alert alert-danger has-error">{this.state.errors.VenueID}</div>}
+                    </div>
+                </div>}
+            {this.props.amenities && this.props.amenities.length > 1 &&
+                <div className="form-group">
+                    <label htmlFor={"Amenities"}>{"Amenities"}</label>
+                    <div className="field">
+                             <select  data-venueID={this.state.amenity.VenueID}  name={"Amenities"} className="btn btn-primary"
+                                onChange={this.onAmenitySelected()}
+                                defaultValue={this.state.amenity.id && this.state.amenity.id > 0 ? this.state.amenity.id: 0} >
+                                <option key={0} value={0}>New Amenity</option>
+                                {this.props.amenities.map((amenity, index) => {
+                               return(<option key={amenity.id} value={amenity.id} >{amenity.AName}</option>
+                              );  })
+                            }
+                          </select>;
+                      </div>
+                </div>}
+                <div>
              {amenityFound &&
                      <ManageAmenityForm
                         amenity={this.state.amenity}
@@ -292,7 +326,8 @@ ManageAmenityPage.propTypes = {
   actions: PropTypes.object.isRequired,
   params: PropTypes.object.isRequired,
   amenity: PropTypes.object,
-  venues: PropTypes.array
+  venues: PropTypes.array,
+  amenities: PropTypes.array
 };
 
 //Pull in the React Router context so router is available on this.context.router.
@@ -302,10 +337,12 @@ ManageAmenityPage.contextTypes = {
 
 
 function mapStateToProps(state, ownProps) {
-  console.log(state.manageAmenity.venues)
+    console.log("here");
+    console.log(state.manageAmenity.amenity);
   return {
         amenity: state.manageAmenity.amenity,
-        venues: state.manageAmenity.venues
+        venues: state.manageAmenity.venues,
+        amenities: state.manageAmenity.amenities
     };
 }
 

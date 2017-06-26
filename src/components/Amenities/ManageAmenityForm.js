@@ -9,7 +9,7 @@ import {PropTypes} from 'prop-types';
 const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}) => {
   return (
     <form>
-      <h1>Add/Edit Amenity</h1>
+      
       <table className="container ">
      <tbody>
          <tr>

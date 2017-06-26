@@ -12,7 +12,9 @@ export default function manageAmenityReducer(state = initialState.manageAmenity,
                   });
           case types.DEFAULT_AMENITY_LOAD_SUCCESS:
                   return Object.assign({}, state, {
-                    amenity: initialState.manageAmenity.amenity
+                    amenity: Object.assign({}, initialState.manageAmenity.amenity, {
+                                  VenueID: action.data
+                                })
                   });
           case types.SET_AMENITY_VENUE_SUCCESS:
                 return Object.assign({}, state, {
@@ -35,7 +37,12 @@ export default function manageAmenityReducer(state = initialState.manageAmenity,
                       return Object.assign({}, state, {
                        venues: action.data
                      });
-
+         case types.MANAGE_LOADALL_AMENITIES_SUCCESS:
+         {
+              return Object.assign({}, state, {
+                 amenities: action.data
+               });
+         }
 
          default:
                     return state;

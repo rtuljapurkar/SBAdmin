@@ -164,8 +164,7 @@ class SessionApi {
                                   return true;
                        }
                        else
-                       {
-                          console.log("here");
+                       {                          
                           throw("Error occured while registering..");
                         }
                })

@@ -28,10 +28,10 @@ export default (
     <Route path="/register" title="Register" component={RegisterPage} />
     <Route path="/venues" title="Venues" component={VenuesPage} onEnter={requireAuth}/>
     <Route path="/amenity/edit" title="Manage Amenity" component={ManageAmenityPage} onEnter={requireAuth}/>
+    <Route path="/amenities/manage" title="Amenities" component={ManageAmenityPage} onEnter={requireAuth}/>
     <Route path="/amenity/add/:venueID" title="Manage Amenity" component={ManageAmenityPage} onEnter={requireAuth}/>
     <Route path="/poi/edit" title="Manage POI" component={ManagePOIPage} onEnter={requireAuth}/>
     <Route path="/poi/add/:venueID" title="Manage POI" component={ManagePOIPage} onEnter={requireAuth}/>
-
     <Route path="/posts"  title="Posts"  component={PostsPage} onEnter={requireAuth}/>
     <Route path="/venues/add" title="Manage Venue" component={ManageVenuePage} onEnter={requireAuth}/>
     <Route path="/venues/:venueId" component={VenueDetailPage} onEnter={requireAuth}/>

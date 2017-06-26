@@ -156,7 +156,7 @@ class AmenitiesPage extends React.Component {
                                       <option value="Restrooms">Restrooms</option>
                                   </select>}
                               </div>
-                              
+
                               <div className="ibInline" >
                                   {!this.props.loading &&<Link to={"/amenity/add/" + venue.id}>
                                             <Button bsStyle="primary" bsSize="small" >
