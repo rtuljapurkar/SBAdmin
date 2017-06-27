@@ -59,7 +59,8 @@ render(){
                                                  <li><Link id="venuesnav" to="/Venues" className="nav navbar-nav">Venues</Link></li>
 
                                                  {/* <li><Link id="teamsnav" to="/teams" className="nav navbar-nav">Teams</Link></li> */}
-                                                 <li><Link id="postsnav" to="/amenities/manage" className="nav navbar-nav">Add/Edit Amenity</Link></li>
+                                                 <li><Link id="manageamenitiesnav" to="/amenities/manage" className="nav navbar-nav">Add/Edit Amenity</Link></li>
+                                                  <li><Link id="managepoinav" to="/poi/manage" className="nav navbar-nav">Add/Edit Point Of Interest</Link></li>
                                                  <li className="visible-sm visible-xs"><Link id="favoritesnav" to="/favorites" className="nav navbar-nav">Add/Edit POI</Link></li>
                                                  {/* <li className="visible-sm visible-xs"><Link id="scoresnav" to="/scores" className="nav navbar-nav">Scores</Link></li> */}
                                     </ul><ul className="nav navbar-nav navbar-right">

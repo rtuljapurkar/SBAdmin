@@ -78,7 +78,7 @@ import {Button, Glyphicon, SplitButton, MenuItem} from 'react-bootstrap';
                                           </Button>
                                       </a>);
                           buttonRow.push(<b key={id}>&nbsp;&nbsp;&nbsp;&nbsp;</b>);
-                          buttonRow.push(<Button bsStyle="primary" onClick={this.redirectToManage}  bsSize="small" >
+                          buttonRow.push(<Button key={id+"Button"} bsStyle="primary" onClick={this.redirectToManage}  bsSize="small" >
                                               <Glyphicon glyph="pencil" />  Edit
                                           </Button>
                                     );
@@ -122,6 +122,10 @@ AmenitiesTable.propTypes = {
   actions:PropTypes.object,
   Amenity: PropTypes.object,
   onDisableVenue: PropTypes.func,
-  onEnableVenue: PropTypes.func
+  onEnableVenue: PropTypes.func,
+  onDisable: PropTypes.func,
+  onEnable: PropTypes.func,
+  onManage: PropTypes.func
 };
+
 export default AmenitiesTable;

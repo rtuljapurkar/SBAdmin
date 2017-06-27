@@ -108,6 +108,7 @@ export function loadVenues() {
    export function saveAmenity(amenity) {
      return function (dispatch, getState) {
        dispatch(beginAjaxCall());
+
        return venuesApi.saveAmenity(amenity).then(amenity => {
            dispatch(createAmenitySuccess(amenity));
        }).catch(error => {

@@ -8,8 +8,7 @@ import {PropTypes} from 'prop-types';
 
 const ManagePOIForm = ({poi, onChange, onSave, errors, saving, onCancel}) => {
   return (
-    <form>
-      <h1>Add/Edit Point Of Interest</h1>
+    <form>       
       <table className="container ">
      <tbody>
          <tr>
@@ -104,7 +103,7 @@ const ManagePOIForm = ({poi, onChange, onSave, errors, saving, onCancel}) => {
                    value={poi.POIDescription== null? "":poi.POIDescription}
                    onChange={onChange}
                    error={errors.POIDescription}/>
-             </td>            
+             </td>
          </tr>
          <tr>
              <td className="col-xs-2">

@@ -43,10 +43,12 @@ export default function ajaxStatusReducer(state = initialState.loadingStatus, ac
       case types.LOAD_TEAMS_SUCCESS:
       case types.LOAD_VENUESMAIN_SUCCESS:
       case types.LOAD_MANAGEAMENITY_VENUES_SUCCESS:
+      case types.LOAD_MANAGEPOI_VENUES_SUCCESS:
       case types.LOAD_AMENITIES_SUCCESS:
       case types.LOAD_POI_SUCCESS:
       case types.VENUE_DETAIL_USERS_SUCCESS:
       case types.MANAGE_LOADALL_AMENITIES_SUCCESS:
+      case types.MANAGE_LOADALL_POIS_SUCCESS:
       case types.AJAX_CALL_ERROR:
       {
            return Object.assign({}, state, {

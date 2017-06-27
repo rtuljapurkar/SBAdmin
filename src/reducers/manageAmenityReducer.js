@@ -3,6 +3,15 @@ import initialState from './initialState';
 import {browserHistory} from 'react-router';
 import PropTypes from 'prop-types';
 
+function sortData (data, sortKey) {
+      const multiplier =  1;
+      data.sort((a, b) => {
+        const aVal = a[sortKey] || 0;
+        const bVal = b[sortKey] || 0;
+        return aVal > bVal ? multiplier : (aVal < bVal ? -multiplier : 0);
+      });
+      return data;
+    }
 
 export default function manageAmenityReducer(state = initialState.manageAmenity, action) {
       switch(action.type) {
@@ -12,9 +21,9 @@ export default function manageAmenityReducer(state = initialState.manageAmenity,
                   });
           case types.DEFAULT_AMENITY_LOAD_SUCCESS:
                   return Object.assign({}, state, {
-                    amenity: Object.assign({}, initialState.manageAmenity.amenity, {
-                                  VenueID: action.data
-                                })
+                        amenity: Object.assign({}, initialState.manageAmenity.amenity, {
+                                      VenueID: action.data
+                                    })
                   });
           case types.SET_AMENITY_VENUE_SUCCESS:
                 return Object.assign({}, state, {
@@ -33,14 +42,13 @@ export default function manageAmenityReducer(state = initialState.manageAmenity,
                       amenity: action.data
                     });
           case types.LOAD_MANAGEAMENITY_VENUES_SUCCESS:
-        //  console.log(action.data);
                       return Object.assign({}, state, {
                        venues: action.data
                      });
          case types.MANAGE_LOADALL_AMENITIES_SUCCESS:
          {
               return Object.assign({}, state, {
-                 amenities: action.data
+                 amenities: sortData(action.data, "AName")
                });
          }
 

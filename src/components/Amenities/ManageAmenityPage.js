@@ -29,10 +29,7 @@ class ManageAmenityPage extends React.Component {
 
   componentWillMount() {
     this.loadVenues();
-    console.log("will mount");
-
     if(this.props.params.venueID > 0 && this.props.params.venueID != this.props.amenity.VenueID ){
-        console.log("in if");
         this.props.actions.loadDefaultAmenity(this.props.params.venueID);
     }
   }
@@ -40,31 +37,22 @@ class ManageAmenityPage extends React.Component {
   componentWillReceiveProps (nextProps) {
      if(this.props.amenity.id !== nextProps.amenity.id  ||
                 this.props.amenity.VenueID !== nextProps.amenity.VenueID) {
-         debugger;
-         console.log("in eillreceiveprops");
-         console.log(nextProps);
-
          if(this.props.amenity.id != nextProps.amenity.id){
-             this.setState({amenity: nextProps.amenity});
+             this.setState({amenity: Object.assign({}, nextProps.amenity)});
          }
 
          if(this.props.amenity.VenueID != nextProps.amenity.VenueID){
              if(nextProps.amenity.VenueID == 0){
-                    this.props.actions.loadDefaultAmenity(nextProps.params.venueID);
+                    //this.props.actions.loadDefaultAmenity(nextProps.params.venueID);
+                    this.setState({amenity: Object.assign({}, nextProps.amenity)});
                 }
              else{
                     if(nextProps.amenity.VenueID > 0){
                         this.props.actions.manageAmenities(nextProps.amenity.VenueID);
-                        this.props.actions.loadDefaultAmenity(nextProps.amenity.VenueID);
+                         this.setState({amenity: Object.assign({}, nextProps.amenity)});
                       }
                 }
          }
-
-
-        //   this.setState({amenity: Object.assign({}, nextProps.amenity)});
-
-
-         // this.props.actions.loadDefaultAmenity(nextProps.params.venueID);
      }
   }
 
@@ -80,6 +68,10 @@ class ManageAmenityPage extends React.Component {
     const field = event.target.name;
     let amenity = this.state.amenity;
     amenity[field] = event.target.value;
+    if(event.target.name == "AType")
+    {
+        amenity["ASubType"] = ""; 
+    }
     return this.setState({amenity: amenity});
   }
 
@@ -112,7 +104,8 @@ class ManageAmenityPage extends React.Component {
       formIsValid = false;
     }
 
-    if (this.state.amenity.ASubType == "") {
+    debugger;
+    if (this.state.amenity.AType != "Restrooms" && (this.state.amenity.ASubType == "" || this.state.amenity.ASubType == "Select Sub Type")) {
       errors.ASubType = 'Amenity Sub Type is invalid';
       formIsValid = false;
     }
@@ -203,14 +196,13 @@ class ManageAmenityPage extends React.Component {
     }
     this.setState({saving: true});
     let amenityToSubmit = this.state.amenity;
-
     this.props.actions.saveAmenity(amenityToSubmit)
     .then( () =>{
             this.redirect(this.state.amenity.VenueID);
       })
       .catch(error => {
-        toastr.error(error);
-        this.setState({saving: false});
+          this.setState({saving: false});
+          toastr.error(error);
       });
   }
 
@@ -228,7 +220,6 @@ class ManageAmenityPage extends React.Component {
  onVenueSelected(){
       return (e) => {
         e.preventDefault();
-        console.log(e.target.value);
         this.props.actions.setAmenityVenueID(e.target.value);
         if(e.target.value > 0){
             this.props.actions.manageAmenities(e.target.value);
@@ -239,10 +230,9 @@ class ManageAmenityPage extends React.Component {
  onAmenitySelected(){
       return (e) => {
         e.preventDefault();
-        console.log(e.target.value);
          let venueID = e.target.attributes["data-venueID"].value;
          if(venueID == undefined){
-             venueID = 0
+             venueID = 0;
          }
         if(e.target.value > 0){
             this.props.actions.getAmenityByID(e.target.value)
@@ -258,14 +248,28 @@ class ManageAmenityPage extends React.Component {
       };
     }
 
+sortData (data, sortKey) {
+      const multiplier =  1;
+      data.sort((a, b) => {
+        const aVal = a[sortKey] || 0;
+        const bVal = b[sortKey] || 0;
+        return aVal > bVal ? multiplier : (aVal < bVal ? -multiplier : 0);
+      });
+      return data;
+    }
+
+
   render() {
     let amenityFound = true;
     if((this.props.params.amenityId > 0) && (this.state.amenity.id == 0))
     {
         amenityFound = false;
     }
-      console.log(this.state.amenity.VenueID);
-     console.log("render");
+    let venues = [];
+    venues = this.sortData (this.props.venues, "VName");
+    // let amenities = [];
+    // amenities = this.sortData (this.props.amenities, "AName");
+
     return (
         <div>
             <h1>Add/Edit Amenity</h1>
@@ -275,9 +279,9 @@ class ManageAmenityPage extends React.Component {
                     <div className="field">
                              <select   name={"Venue"} className="btn btn-primary"
                                 onChange={this.onVenueSelected()}
-                                defaultValue={this.state.amenity.VenueID && this.state.amenity.VenueID > 0 ? this.state.amenity.VenueID: 0} >
+                                value={this.state.amenity.VenueID}>
                                 <option key={0} value={0}>Select Venue</option>
-                            {this.props.venues.map((venue, index) => {
+                            {venues.map((venue, index) => {
                                return(<option key={venue.id} value={venue.id} >{venue.VName}</option>
                               );  })
                             }
@@ -330,15 +334,12 @@ ManageAmenityPage.propTypes = {
   amenities: PropTypes.array
 };
 
-//Pull in the React Router context so router is available on this.context.router.
 ManageAmenityPage.contextTypes = {
   router: PropTypes.object
 };
 
 
 function mapStateToProps(state, ownProps) {
-    console.log("here");
-    console.log(state.manageAmenity.amenity);
   return {
         amenity: state.manageAmenity.amenity,
         venues: state.manageAmenity.venues,

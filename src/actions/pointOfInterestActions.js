@@ -33,6 +33,15 @@ export function managePOISuccess (data) {
 export function setPOIVenueIDSuccess (data) {
   return {type: types.SET_POI_VENUE_SUCCESS,  data};
 }
+export function managePointOfInterestsSuccess(data) {
+  return {type: types.MANAGE_LOADALL_POI_SUCCESS, data};
+}
+export function loadVenuesSuccess(data) {
+  return {type: types.LOAD_MANAGEPOI_VENUES_SUCCESS, data};
+}
+export function loadPOIByIDSuccess(data) {
+  return {type: types.MANAGE_POI_LOAD_SUCCESS, data};
+}
 
  export function loadPointOfInterests(venueId) {
          return function(dispatch) {
@@ -64,7 +73,7 @@ export function setPOIVenueIDSuccess (data) {
      return function(dispatch) {
            dispatch( beginAjaxCall());
            return venuesApi.getPOIByID(ID).then(data => {
-                dispatch(loadPOIVenuesSuccess(data));
+                dispatch(loadPOIByIDSuccess(data));
             }).catch(error => {
                 dispatch(ajaxCallError(error));
                 throw(error);
@@ -72,10 +81,10 @@ export function setPOIVenueIDSuccess (data) {
         };
     }
 
-   export function LoadDefaultPOI() {
+   export function loadDefaultPOI(venueID) {
      // make async call to api, handle promise, dispatch action when promise is resolved
      return function(dispatch) {
-           dispatch(DefaultPOILoadSuccess());
+           dispatch(DefaultPOILoadSuccess(venueID));
         };
     }
 
@@ -126,3 +135,28 @@ export function setPOIVenueIDSuccess (data) {
          dispatch(setPOIVenueIDSuccess(venueID));
      };
    }
+
+   export function managePointOfInterests(venueId) {
+           return function(dispatch) {
+           dispatch( beginPOIAjaxCall());
+           return venuesApi.getPointOfInterests(venueId).then(data => {
+                dispatch(managePointOfInterestsSuccess(data));
+            }).catch(error => {
+                dispatch(ajaxCallError(error));
+                throw(error);
+            });
+        };
+    }
+
+    export function loadVenues() {
+      // make async call to api
+      return function(dispatch) {
+            dispatch( beginAjaxCall());
+            return venuesApi.getAllVenues().then(data => {
+                 dispatch(loadVenuesSuccess(data));
+             }).catch(error => {
+                 dispatch(ajaxCallError(error));
+                 throw(error);
+             });
+         };
+     }

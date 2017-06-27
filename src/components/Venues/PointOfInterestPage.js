@@ -74,14 +74,12 @@ class PointOfInterestPage extends React.Component {
 
    disablePOI(poi){
        this.props.actions.disablePOI(poi);
-       debugger;
         toastr.success('POI Disabled Successfully');
         window.location =  "/poi/" + poi.VenueID;
    }
 
    enablePOI(poi){
        this.props.actions.enablePOI(poi);
-       debugger;
         toastr.success('POI Enabled Successfully');
         window.location = "/poi/" + poi.VenueID;
      }
@@ -98,6 +96,7 @@ class PointOfInterestPage extends React.Component {
     const headerCellProps = { sortBy, sortKey, sortDesc };
     let localData = this.sortData();
     localData = this.filterData(localData);
+
     let venue = this.props.pointOfInterests.venue;
     let locArray = venue.VGPSLoc.split(',');
     let gpsLocationObj = {};

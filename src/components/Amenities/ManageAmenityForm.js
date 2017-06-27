@@ -1,15 +1,85 @@
 import React from 'react';
 import TextInput from '../common/TextInput';
+import SelectInput from '../common/SelectInput';
 import StarInput from '../common/StarInput';
 import {Button, Glyphicon} from 'react-bootstrap';
 //import {glyphicon} from 'react-router';
 import ReactStars from 'react-stars';
 import {PropTypes} from 'prop-types';
 
+Array.prototype.contains = function(v) {
+    for(let i = 0; i < this.length; i++) {
+        if(this[i] === v) return true;
+    }
+    return false;
+};
+
+Array.prototype.unique = function() {
+    let arr = [];
+    for(let i = 0; i < this.length; i++) {
+        if(!arr.contains(this[i])) {
+            arr.push(this[i]);
+        }
+    }
+    return arr;
+};
+
+
 const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}) => {
+    let arrAmenityType = [
+        {
+            value: "Miscellaneous",
+            text: "Miscellaneous"
+        },
+        {
+            value: "Food and Beverage",
+            text: "Food and Beverage"
+        },
+        {
+            value: "Information",
+            text: "Information"
+        },
+        {
+            value:  "Merchandise",
+            text:  "Merchandise"
+        },
+        {
+            value: "Parking",
+            text: "Parking"
+        },
+        {
+            value: "Restrooms",
+            text: "Restrooms"
+        }];
+
+   let arrAmenitySubTypes = [
+                                { value:"Alcohol", text: "Alcohol", type: "Food and Beverage"},
+                                { value:"Bar", text: "Bar", type: "Food and Beverage"},
+                                { value:"Club", text: "Club", type: "Food and Beverage"},
+                                { value:"Dessert", text: "Dessert", type: "Food and Beverage"},
+                                { value:"Restaurant", text: "Restaurant", type: "Food and Beverage"},
+                                { value:"Specialty Concession", text: "Specialty Concession", type: "Food and Beverage"},
+                                { value:"Traditional Concession", text: "Traditional Concession", type: "Food and Beverage"},
+                                { value:"Access Points", text: "Access Points", type: "Information"},
+                                { value:"ATM", text: "ATM", type: "Information"},
+                                { value:"First Aid", text: "First Aid", type: "Information"},
+                                { value:"Guest Services", text: "Guest Services", type: "Information"},
+                                { value:"Promotion", text: "Promotion", type: "Information"},
+                                { value:"Ticket Sales", text: "Ticket Sales", type: "Information"},
+                                { value:"Transportation", text: "Transportation", type: "Information"},
+                                { value:"Authentic", text: "Authentic", type: "Merchandise"},
+                                { value:"Hats", text: "Hats", type: "Merchandise"},
+                                { value:"Official", text: "Official", type: "Merchandise"},
+                                { value:"Attraction", text: "Attraction", type: "Miscellaneous"},
+                                { value:"Social Seating", text: "Social Seating", type: "Miscellaneous"},
+                                { value:"Handicap Only", text: "Handicap Only", type: "Parking"},
+                                { value:"Official", text: "Official", type: "Parking"}
+                            ];
+    //let uniqueArrOptions = arrOptions.unique();
+
   return (
     <form>
-      
+
       <table className="container ">
      <tbody>
          <tr>
@@ -31,7 +101,7 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
                    onChange={onChange}
                    error={errors.ASection}/>
              </td>
-             <td className="col-xs-2">
+             <td className="col-xs-2 col-md-4">
                  <TextInput
                    name="AChildAmenity"
                    label="Child Amenity"
@@ -42,20 +112,27 @@ const ManageAmenityForm = ({amenity, onChange, onSave, errors, saving, onCancel}
          </tr>
          <tr>
              <td className="col-xs-2">
-                 <TextInput
-                   name="AType"
-                   label="Type"
-                   value={amenity.AType== null? "":amenity.AType}
-                   onChange={onChange}
-                   error={errors.AType}/>
+                       <SelectInput
+                         name="AType"
+                         label="Type"
+                         value={amenity.AType}
+                         defaultOption="Select Type"
+                         onChange={onChange}
+                         options={arrAmenityType}
+                         error={errors.AType}/>
              </td>
+
              <td className="col-xs-2">
-                 <TextInput
-                   name="ASubType"
-                   label="SubType"
-                   value={amenity.ASubType== null? "":amenity.ASubType}
-                   onChange={onChange}
-                   error={errors.ASubType}/>
+                       <SelectInput
+                         name="ASubType"
+                         label="Sub Type"
+                         value={amenity.ASubType}
+                         defaultOption="Select Sub Type"
+                         onChange={onChange}
+                         options={arrAmenitySubTypes.filter(function(e){
+                             return e.type == amenity.AType;
+                         })}
+                         error={errors.ASubType}/>
              </td>
          </tr>
          <tr>
@@ -230,3 +307,10 @@ ManageAmenityForm.propTypes = {
 };
 
 export default ManageAmenityForm;
+
+{/* <TextInput
+  name="AType"
+  label="Type"
+  value={amenity.AType== null? "":amenity.AType}
+  onChange={onChange}
+  error={errors.AType}/> */}

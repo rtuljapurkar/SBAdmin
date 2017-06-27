@@ -1,8 +1,7 @@
 import {fetchWithDelay2} from  './delay';
 import axios from 'axios';
 
-function handleErrors(response) {
-   //console.log(response);
+function handleErrors(response) {  
      if (!response.status == "200") {
          throw Error(response.statusText);
      }
@@ -78,6 +77,7 @@ class VenuesApi {
         //   const request = new Request(`${process.env.API_HOST}/sb_poi?` + filter, {
         //     method: 'GET'
         //   });
+
           const request = `${process.env.API_HOST}/sb_poi?` + filter;
           return fetchWithDelay2(request)
           .then(handleErrors)
@@ -236,7 +236,6 @@ class VenuesApi {
                     else{
                             url = `${process.env.API_HOST}/sb_amenity/`+ amenity.id + "/replace";
                         }
-
                     return axios
                     .post(url,amenity)
                     .then(handleErrors)
@@ -341,7 +340,7 @@ class VenuesApi {
                                   return axios
                                   .post(url,poi)
                                   .then(handleErrors)
-                                  .then(response => {                                    
+                                  .then(response => {
                                     return response.data;
                                   }).catch(error => {
                                     throw error;
