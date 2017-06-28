@@ -1,9 +1,11 @@
 import {fetchWithDelay2} from  './delay';
 import axios from 'axios';
 
-function handleErrors(response) {  
+function handleErrors(response) {
      if (!response.status == "200") {
-         throw Error(response.statusText);
+         console.log("response.statusText");
+         throw Error("Error getting data");
+
      }
      return response;
  }
@@ -182,14 +184,15 @@ class VenuesApi {
           }
 
           static deleteVenue(venue) {
+                  let tempVenue = Object.assign({}, venue);
                   let url = "";
-                  venue.Active = 0;
+                  tempVenue.Active = 0;
 
-                  if(venue.id > 0){
-                          url = `${process.env.API_HOST}/sb_venue/`+ venue.id + "/replace";
+                  if(tempVenue.id > 0){
+                          url = `${process.env.API_HOST}/sb_venue/`+ tempVenue.id + "/replace";
                       }
                   return axios
-                  .post(url,venue)
+                  .post(url,tempVenue)
                   .then(handleErrors)
                    .then(response => {
                     return response.data;
@@ -199,13 +202,14 @@ class VenuesApi {
                 }
 
         static enableVenue(venue) {
+              let tempVenue = Object.assign({}, venue);
                 let url = "";
-                venue.Active = 1;
-                if(venue.id > 0){
-                        url = `${process.env.API_HOST}/sb_venue/`+ venue.id + "/replace";
+                tempVenue.Active = 1;
+                if(tempVenue.id > 0){
+                        url = `${process.env.API_HOST}/sb_venue/`+ tempVenue.id + "/replace";
                     }
                 return axios
-                .post(url,venue)
+                .post(url,tempVenue)
                 .then(handleErrors)
                  .then(response => {
                   return response.data;
@@ -248,13 +252,14 @@ class VenuesApi {
                   }
 
                   static deleteAmenity(amenity) {
+                          let tempAmenity = Object.assign({}, amenity);
                           let url = "";
-                          amenity.Active = 0;
-                          if(amenity.id > 0){
-                                  url = `${process.env.API_HOST}/sb_amenity/`+ amenity.id + "/replace";
+                          tempAmenity.Active = 0;
+                          if(tempAmenity.id > 0){
+                                  url = `${process.env.API_HOST}/sb_amenity/`+ tempAmenity.id + "/replace";
                               }
                           return axios
-                          .post(url,amenity)
+                          .post(url,tempAmenity)
                           .then(handleErrors)
                            .then(response => {
                             return response.data;
@@ -264,13 +269,14 @@ class VenuesApi {
                         }
 
                 static enableAmenity(amenity) {
+                       let tempAmenity = Object.assign({}, amenity);
                         let url = "";
-                        amenity.Active = 1;
-                        if(amenity.id > 0){
-                                url = `${process.env.API_HOST}/sb_amenity/`+ amenity.id + "/replace";
+                        tempAmenity.Active = 1;
+                        if(tempAmenity.id > 0){
+                                url = `${process.env.API_HOST}/sb_amenity/`+ tempAmenity.id + "/replace";
                             }
                         return axios
-                        .post(url,amenity)
+                        .post(url,tempAmenity)
                         .then(handleErrors)
                          .then(response => {
                           return response.data;
@@ -316,13 +322,14 @@ class VenuesApi {
                             }
 
                             static deletePOI(poi) {
-                                    let url = "";
-                                    poi.Active = 0;
-                                    if(poi.id > 0){
-                                            url = `${process.env.API_HOST}/sb_poi/`+ poi.id + "/replace";
+                                   let temppoi = Object.assign({}, poi);
+                                   let url = "";
+                                    temppoi.Active = 0;
+                                    if(temppoi.id > 0){
+                                            url = `${process.env.API_HOST}/sb_poi/`+ temppoi.id + "/replace";
                                         }
                                     return axios
-                                    .post(url,poi)
+                                    .post(url,temppoi)
                                     .then(handleErrors)
                                      .then(response => {
                                       return response.data;
@@ -332,13 +339,14 @@ class VenuesApi {
                                   }
 
                           static enablePOI(poi) {
+                                  let temppoi = Object.assign({}, poi);
                                   let url = "";
-                                  poi.Active = 1;
-                                  if(poi.id > 0){
-                                          url = `${process.env.API_HOST}/sb_poi/`+ poi.id + "/replace";
+                                  temppoi.Active = 1;
+                                  if(temppoi.id > 0){
+                                          url = `${process.env.API_HOST}/sb_poi/`+ temppoi.id + "/replace";
                                       }
                                   return axios
-                                  .post(url,poi)
+                                  .post(url,temppoi)
                                   .then(handleErrors)
                                   .then(response => {
                                     return response.data;

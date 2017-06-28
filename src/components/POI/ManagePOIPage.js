@@ -28,11 +28,14 @@ class ManagePOIPage extends React.Component {
 
 
   componentWillMount() {
-      this.loadVenues();
-      if(this.props.params.venueID > 0 && this.props.params.venueID != this.props.poi.VenueID ){
+        this.loadVenues();
+        if(this.props.params.venueID > 0 && this.props.params.venueID != this.props.poi.VenueID ){
              this.props.actions.loadDefaultPOI(this.props.params.venueID);
-         }
+        }
 
+        if(this.props.pointOfInterests.length == 1 && this.props.poi.VenueID > 0){
+          this.props.actions.managePointOfInterests(this.props.poi.VenueID);
+        }
     // if(this.props.poi.VenueID == 0 && this.props.params.venueID != 0){
     //     this.props.actions.setPOIVenueID(this.props.params.venueID);
     // }

@@ -28,13 +28,15 @@ class PointOfInterestPage extends React.Component {
               this.props.actions.getVenueByID(this.props.params.venueId)
               .then()
               .catch( error => {
-                          toastr.error(error);
+                  console.log(error);
+                  toastr.error("Error occured during the operation");
               });
 
               this.props.actions.loadPointOfInterests(this.props.params.venueId)
               .then()
               .catch( error => {
-                  toastr.error(error);
+                  console.log(error);
+                  toastr.error("Error occured during the operation");
               });
       }
     }
@@ -73,20 +75,38 @@ class PointOfInterestPage extends React.Component {
      }
 
    disablePOI(poi){
-       this.props.actions.disablePOI(poi);
-        toastr.success('POI Disabled Successfully');
-        window.location =  "/poi/" + poi.VenueID;
+       this.props.actions.disablePOI(poi).then()
+       .catch( error => {
+               console.log(error);
+               toastr.error("Error occured during the operation");
+       });
+        toastr.success('POI disabled Successfully');
+        setTimeout(() => {
+            window.location = "/poi/" + poi.VenueID;
+        }, 500);
    }
 
    enablePOI(poi){
-       this.props.actions.enablePOI(poi);
-        toastr.success('POI Enabled Successfully');
-        window.location = "/poi/" + poi.VenueID;
+       this.props.actions.enablePOI(poi)
+       .then()
+       .catch( error => {
+               console.log(error);
+               toastr.error("Error occured during the operation");
+       });
+        toastr.success('POI enabled Successfully');
+        setTimeout(() => {
+            window.location = "/poi/" + poi.VenueID;
+        }, 500);
+
      }
 
    managePOI(poi){
        this.props.actions.managePOI(poi);
-       browserHistory.push("/poi/edit") ; /*+ venue.id;*/
+       setTimeout(() => {
+            browserHistory.push("/poi/edit") ; /*+ venue.id;*/
+            // browserHistory.push("/poi/edit") ; /*+ venue.id;*/
+       }, 500);
+
      }
 
   render() {

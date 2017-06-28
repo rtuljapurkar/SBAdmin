@@ -18,12 +18,14 @@ class AmenitiesPage extends React.Component {
       this.enableAmenity = this.enableAmenity.bind(this);
       this.manageAmenity = this.manageAmenity.bind(this);
   }
+
   componentWillMount() {
     if (this.props.params.venueId > 0 && this.props.params.venueId != this.props.amenities.venue.id ) {
             this.LoadProps(this.props.params.venueId);
       }
     }
-    componentWillReceiveProps (nextProps) {
+
+ componentWillReceiveProps (nextProps) {
        if(nextProps.params.venueId !== this.props.params.venueId) {
            this.LoadProps(nextProps.params.venueId);
        }
@@ -33,13 +35,15 @@ class AmenitiesPage extends React.Component {
         this.props.actions.getVenueByID(venueId)
         .then()
         .catch( error => {
-                  toastr.error(error);
+            console.log(error);
+            toastr.error("Error occured during the operation");
         });
 
         this.props.actions.loadAmenities(venueId)
         .then()
         .catch( error => {
-            toastr.error(error);
+            console.log(error);
+            toastr.error("Error occured during the operation");
         });
     }
 
@@ -75,20 +79,35 @@ class AmenitiesPage extends React.Component {
     }
 
   disableAmenity(amenity){
-      this.props.actions.disableAmenity(amenity);
-       toastr.success('Amenity Disabled Successfully');
+      this.props.actions.disableAmenity(amenity)
+      .then()
+      .catch( error => {
+              console.log(error);
+              toastr.error("Error occured during the operation");
+      });
+       toastr.success('Amenitydisabled Successfully');
        window.location =  "/amenities/" + amenity.VenueID;
   }
 
   enableAmenity(amenity){
-      this.props.actions.enableAmenity(amenity);
-       toastr.success('Amenity Enabled Successfully');
-       window.location = "/amenities/" + amenity.VenueID;
+      this.props.actions.enableAmenity(amenity)
+      .then()
+      .catch( error => {
+              console.log(error);
+              toastr.error("Error occured during the operation");
+      });
+       toastr.success('Amenity enabled Successfully');
+       setTimeout(() => {
+           window.location = "/amenities/" + amenity.VenueID;
+       }, 500);
+
     }
 
-  manageAmenity(amenity){
+  manageAmenity(amenity){     
       this.props.actions.manageAmenity(amenity);
-      browserHistory.push("/amenity/edit") ; /*+ venue.id;*/
+      browserHistory.push("/amenity/edit") ;
+
+
     }
 
   render() {

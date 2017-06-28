@@ -19,12 +19,13 @@ constructor(props){
 }
 
   componentWillMount() {
-     
+
     if (this.props.venues.data == [] || this.props.venues.data.length == 1) {
         this.props.actions.loadVenuesMain()
         .then()
         .catch( error => {
-            toastr.error(error);
+            console.log(error);
+            toastr.error("Error occured during the operation");
         });
     }
   }
@@ -61,15 +62,32 @@ constructor(props){
    }
 
 disableVenue(venue){
-    this.props.actions.disableVenue(venue);
-     toastr.success('Venue Disabled Successfully');
-     window.location = "/venues/" ; /*+ venue.id;*/
+    this.props.actions.disableVenue(venue)
+    .then()
+    .catch( error => {
+              console.log(error);
+              toastr.error("Error occured during the operation");
+    });
+     toastr.success('Venue disabled Successfully');
+       setTimeout(() => {
+            window.location = "/venues/" ; /*+ venue.id;*/
+            //browserHistory.push('/venues');
+       }, 500);
+
 }
 
 enableVenue(venue){
-    this.props.actions.enableVenue(venue);
-     toastr.success('Venue Enabled Successfully');
-     window.location = "/venues/" ; /*+ venue.id;*/
+    this.props.actions.enableVenue(venue)
+    .then()
+    .catch( error => {
+            console.log(error);
+            toastr.error("Error occured during the operation");
+    });
+     toastr.success('Venue enabled Successfully');
+     setTimeout(() => {
+         window.location = "/venues/" ; /*+ venue.id;*/
+     }, 500);
+
 }
 
 

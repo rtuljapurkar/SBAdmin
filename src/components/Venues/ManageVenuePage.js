@@ -42,7 +42,7 @@ class ManageVenuePage extends React.Component {
       this.props.actions.loadVenueByID(venueId)
       .then()
       .catch( error => {
-                toastr.error(error);
+            toastr.error(error);
       });
     }
 

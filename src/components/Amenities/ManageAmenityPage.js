@@ -29,9 +29,17 @@ class ManageAmenityPage extends React.Component {
 
   componentWillMount() {
     this.loadVenues();
+    //debugger;
+
     if(this.props.params.venueID > 0 && this.props.params.venueID != this.props.amenity.VenueID ){
         this.props.actions.loadDefaultAmenity(this.props.params.venueID);
     }
+
+    if(this.props.amenities.length == 1 && this.props.amenity.VenueID > 0){
+         this.props.actions.manageAmenities(this.props.amenity.VenueID);
+    }
+
+
   }
 
   componentWillReceiveProps (nextProps) {
@@ -70,7 +78,7 @@ class ManageAmenityPage extends React.Component {
     amenity[field] = event.target.value;
     if(event.target.name == "AType")
     {
-        amenity["ASubType"] = ""; 
+        amenity["ASubType"] = "";
     }
     return this.setState({amenity: amenity});
   }
@@ -104,7 +112,6 @@ class ManageAmenityPage extends React.Component {
       formIsValid = false;
     }
 
-    debugger;
     if (this.state.amenity.AType != "Restrooms" && (this.state.amenity.ASubType == "" || this.state.amenity.ASubType == "Select Sub Type")) {
       errors.ASubType = 'Amenity Sub Type is invalid';
       formIsValid = false;
